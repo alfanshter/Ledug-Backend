@@ -42,8 +42,8 @@
                     <span>Multi Desa</span></a>
             </li>
 
-            <li class="nav-item {{Request::is('kepalasekolah') ? 'active' : ''}} ">
-                <a class="nav-link" href="/kepalasekolah">
+            <li class="nav-item {{Request::is('tvcc') ? 'active' : ''}} ">
+                <a class="nav-link" href="/tvcc">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Link TVCC</span></a>
             </li>

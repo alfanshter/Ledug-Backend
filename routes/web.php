@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\RegisterController;
+use App\Http\Controllers\Web\TvccAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +42,11 @@ Route::get('/beritadesa/{id}', [WebBeritaAdminController::class,'edit'])->middle
 Route::post('/beritadesa', [WebBeritaAdminController::class,'store'])->middleware('auth');
 Route::post('/beritadesa/update', [WebBeritaAdminController::class,'update'])->middleware('auth');
 Route::post('/beritadesa/delete', [WebBeritaAdminController::class,'delete'])->middleware('auth');
+
+//TVCC
+Route::get('/tvcc', [TvccAdminController::class,'index'])->middleware('auth');
+Route::get('/tvcc/{id}', [TvccAdminController::class,'edit'])->middleware('auth');
+Route::post('/tvcc', [TvccAdminController::class,'store'])->middleware('auth');
+Route::post('/tvcc/update', [TvccAdminController::class,'update'])->middleware('auth');
+Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
 
