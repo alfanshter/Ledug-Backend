@@ -81,6 +81,41 @@
                                         <input type="text" class="form-control" id="narasi" required name="narasi" value="{{old('narasi')}}">
                                       </div>
 
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Provinsi:</label>
+                                        <select name="provinsi" id="provinsi" class="form-control">
+                                            <option value="">Pilih Provinsi...</option>
+                                            @foreach ($provinces as $provinsi)
+                                            <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>                                                
+                                            @endforeach
+
+                                        </select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Kabupaten/Kota:</label>
+                                        <select name="kabupaten" id="kabupaten" class="form-control">
+                                            <option value="">Pilih Kabupaten...</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Kecamatan:</label>
+                                        <select name="kecamatan" id="kecamatan" class="form-control">
+                                            <option value="">Pilih Kecamatan...</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Desa:</label>
+                                        <select name="desa" id="desa" class="form-control">
+                                            <option value="">Pilih Desa...</option>
+                                        </select>
+                                      </div>
+
+
+
+
                                       <div class="modal-footer">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary">Tambah</button>
@@ -144,4 +179,64 @@
                     </div>
 
 
+                    <script>
+                        $(function () {
+                            $.ajaxSetup({
+                                headers: {'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')}
+                            })
+                          })
+                        
+                        $(function () {
+                            $('#provinsi').on('change',function () {
+                                let id_provinsi = $('#provinsi').val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{route('getkabupaten')}}",
+                                    data: {id_provinsi: id_provinsi},
+                                    cache: false,
+                                    success: function (response) {
+                                        $('#kabupaten').html(response);
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+
+                              $('#kabupaten').on('change',function () {
+                                let id_kabupaten = $('#kabupaten').val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{route('getkecamatan')}}",
+                                    data: {id_kabupaten: id_kabupaten},
+                                    cache: false,
+                                    success: function (response) {
+                                        $('#kecamatan').html(response);
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+
+                              $('#kecamatan').on('change',function () {
+                                let id_kecamatan = $('#kecamatan').val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{route('getdesa')}}",
+                                    data: {id_kecamatan: id_kecamatan},
+                                    cache: false,
+                                    success: function (response) {
+                                        $('#desa').html(response);
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+                          })
+                    </script>
 @endsection

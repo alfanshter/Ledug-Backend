@@ -75,6 +75,11 @@
                                         <label for="recipient-name" class="col-form-label">email:</label>
                                         <input type="text" class="form-control" id="email" required name="email" value="{{old('email')}}">
                                       </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Desa:</label>
+                                        <input type="text" class="form-control" id="email" required name="email" value="{{old('email')}}">
+                                      </div>
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Password:</label>
                                         <input type="text" class="form-control" id="nim" required name="nim" value="{{old('nim')}}">

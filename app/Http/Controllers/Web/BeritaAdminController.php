@@ -9,16 +9,36 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;
 
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\District;
+use App\Models\Village;
+
 class BeritaAdminController extends Controller
 {
     public function index()
     {
+        // Get semua data
+        $provinces = Province::all();
+        $regencies = Regency::all();
+        $districts = District::all();
+        $villages = Village::all();
+
+        // Cari berdasarkan nama
+        // $provinces = Province::where('name', 'JAWA BARAT')->first();
+        // $regencies = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
+        // $districts = District::where('name', 'LIKE', 'BANDUNG%')->get();
+        // $villages = Village::where('name', 'BOJONGHERANG')->first();
         $data = Berita::all();
-        return view('berita.berita',['berita' => $data]);
+        return view('berita.berita',[
+            'berita' => $data,
+            'provinces' => $provinces,
+        ]);
     }
 
     public function store(Request $request)
     {
+        dd($request->all());
         $validatedData = $request->validate([
             'judul' => 'required|max:255',
             'foto' => 'image|file|max:1024',

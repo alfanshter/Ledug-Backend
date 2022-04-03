@@ -4,6 +4,7 @@ use App\Http\Controllers\BeritaAdminController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\IndoRegionController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\RegisterController;
 use App\Http\Controllers\Web\TvccAdminController;
@@ -50,3 +51,7 @@ Route::post('/tvcc', [TvccAdminController::class,'store'])->middleware('auth');
 Route::post('/tvcc/update', [TvccAdminController::class,'update'])->middleware('auth');
 Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
 
+//RegionController
+Route::post('/getkabupaten', [IndoRegionController::class,'getkabupaten'])->name('getkabupaten');
+Route::post('/getkecamatan', [IndoRegionController::class,'getkecamatan'])->name('getkecamatan');
+Route::post('/getdesa', [IndoRegionController::class,'getdesa'])->name('getdesa');
