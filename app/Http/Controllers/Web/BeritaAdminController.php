@@ -19,17 +19,14 @@ class BeritaAdminController extends Controller
     public function index()
     {
         // Get semua data
-        $provinces = Province::all();
-        $regencies = Regency::all();
-        $districts = District::all();
-        $villages = Village::all();
-
-        // Cari berdasarkan nama
-        // $provinces = Province::where('name', 'JAWA BARAT')->first();
-        // $regencies = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
-        // $districts = District::where('name', 'LIKE', 'BANDUNG%')->get();
-        // $villages = Village::where('name', 'BOJONGHERANG')->first();
-        $data = Berita::all();
+        $provinces = Province::where('is_status',1)->get();
+        $data = DB::table('beritas')
+                    ->select(['beritas.*','provinces.name as provinsi','regencies.name as kabupaten','districts.name as kecamatan','villages.name as desa'])
+                    ->join('provinces','provinces.id','=','beritas.province_id')
+                    ->join('regencies','regencies.id','=','beritas.regencie_id')
+                    ->join('districts','districts.id','=','beritas.district_id')
+                    ->join('villages','villages.id','=','beritas.village_id')
+                    ->get();
         return view('berita.berita',[
             'berita' => $data,
             'provinces' => $provinces,
@@ -38,11 +35,14 @@ class BeritaAdminController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $validatedData = $request->validate([
             'judul' => 'required|max:255',
             'foto' => 'image|file|max:1024',
-            'narasi' => 'required'
+            'narasi' => 'required',
+            'province_id' => 'required',
+            'regencie_id' => 'required',
+            'district_id' => 'required',
+            'village_id' => 'required'
 
         ]);
 

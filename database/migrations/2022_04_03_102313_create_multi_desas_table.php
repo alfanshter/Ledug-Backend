@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('multi_desas', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('foto');
-            $table->string('narasi');
-            $table->char('province_id');
-            $table->char('regencie_id');
-            $table->char('district_id');
-            $table->char('village_id');
+            $table->char('provinsi_id');
+            $table->char('kabupaten_id');
+            $table->char('kecamatan_id');
+            $table->char('desa_id');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('multi_desas');
     }
 };

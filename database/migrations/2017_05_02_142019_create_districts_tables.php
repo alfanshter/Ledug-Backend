@@ -28,6 +28,7 @@ class CreateDistrictsTables extends Migration
                 ->references('id')
                 ->on('regencies')
                 ->onUpdate('cascade')->onDelete('restrict');
+            $table->integer('is_status')->default(0);
         });
     }
 

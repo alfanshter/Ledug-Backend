@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\IndoRegionController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\MultiDesaController;
 use App\Http\Controllers\Web\RegisterController;
 use App\Http\Controllers\Web\TvccAdminController;
 use Illuminate\Support\Facades\Route;
@@ -55,3 +56,11 @@ Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('
 Route::post('/getkabupaten', [IndoRegionController::class,'getkabupaten'])->name('getkabupaten');
 Route::post('/getkecamatan', [IndoRegionController::class,'getkecamatan'])->name('getkecamatan');
 Route::post('/getdesa', [IndoRegionController::class,'getdesa'])->name('getdesa');
+Route::post('/getkabupaten_on', [IndoRegionController::class,'getkabupaten_on'])->name('getkabupaten_on');
+Route::post('/getkecamatan_on', [IndoRegionController::class,'getkecamatan_on'])->name('getkecamatan_on');
+Route::post('/getdesa_on', [IndoRegionController::class,'getdesa_on'])->name('getdesa_on');
+
+
+//MultiDsa
+Route::get('/multidesa', [MultiDesaController::class,'index'])->name('multidesa.index')->middleware('auth');
+Route::post('/multidesa', [MultiDesaController::class,'store'])->name('multidesa.store')->middleware('auth');

@@ -36,8 +36,8 @@
                     <span>Berita Desa</span></a>
             </li>
 
-            <li class="nav-item {{Request::is('pelatih') ? 'active' : ''}} ">
-                <a class="nav-link" href="/pelatih">
+            <li class="nav-item {{Request::is('multidesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/multidesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Multi Desa</span></a>
             </li>

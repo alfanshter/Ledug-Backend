@@ -83,7 +83,7 @@
 
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Provinsi:</label>
-                                        <select name="provinsi" id="provinsi" class="form-control">
+                                        <select name="province_id" id="provinsi" class="form-control">
                                             <option value="">Pilih Provinsi...</option>
                                             @foreach ($provinces as $provinsi)
                                             <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>                                                
@@ -94,21 +94,21 @@
 
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Kabupaten/Kota:</label>
-                                        <select name="kabupaten" id="kabupaten" class="form-control">
+                                        <select name="regencie_id" id="kabupaten" class="form-control">
                                             <option value="">Pilih Kabupaten...</option>
                                         </select>
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Kecamatan:</label>
-                                        <select name="kecamatan" id="kecamatan" class="form-control">
+                                        <select name="district_id" id="kecamatan" class="form-control">
                                             <option value="">Pilih Kecamatan...</option>
                                         </select>
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Desa:</label>
-                                        <select name="desa" id="desa" class="form-control">
+                                        <select name="village_id" id="desa" class="form-control">
                                             <option value="">Pilih Desa...</option>
                                         </select>
                                       </div>
@@ -142,6 +142,10 @@
                                             <th>Judul</th>
                                             <th>Foto</th>
                                             <th>Narasi</th>
+                                            <th>Provinsi</th>
+                                            <th>Kabupaten</th>
+                                            <th>Kecamatan</th>
+                                            <th>Desa</th>
                                             <th class="align-middle text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -156,6 +160,10 @@
                                                 </div>
                                             </td>
                                             <td>{{$data->narasi}}</td>
+                                            <td>{{$data->provinsi}}</td>
+                                            <td>{{$data->kabupaten}}</td>
+                                            <td>{{$data->kecamatan}}</td>
+                                            <td>{{$data->desa}}</td>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-sm-center mt-2">
                                 
@@ -189,10 +197,9 @@
                         $(function () {
                             $('#provinsi').on('change',function () {
                                 let id_provinsi = $('#provinsi').val();
-
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{route('getkabupaten')}}",
+                                    url: "{{route('getkabupaten_on')}}",
                                     data: {id_provinsi: id_provinsi},
                                     cache: false,
                                     success: function (response) {
@@ -206,14 +213,14 @@
 
                               $('#kabupaten').on('change',function () {
                                 let id_kabupaten = $('#kabupaten').val();
-
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{route('getkecamatan')}}",
+                                    url: "{{route('getkecamatan_on')}}",
                                     data: {id_kabupaten: id_kabupaten},
                                     cache: false,
                                     success: function (response) {
                                         $('#kecamatan').html(response);
+                                        console.log('response',response);
                                     },
                                     error: function (data) {
                                         console.log('error',data);
@@ -226,7 +233,7 @@
 
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{route('getdesa')}}",
+                                    url: "{{route('getdesa_on')}}",
                                     data: {id_kecamatan: id_kecamatan},
                                     cache: false,
                                     success: function (response) {

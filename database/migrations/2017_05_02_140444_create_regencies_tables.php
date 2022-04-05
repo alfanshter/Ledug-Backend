@@ -28,6 +28,7 @@ class CreateRegenciesTables extends Migration
                 ->references('id')
                 ->on('provinces')
                 ->onUpdate('cascade')->onDelete('restrict');
+            $table->integer('is_status')->default(0);
         });
     }
 
