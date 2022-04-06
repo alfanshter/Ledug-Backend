@@ -14,17 +14,20 @@ class IndoRegionController extends Controller
  
   public function getkabupaten(request $request)
   {
-    // $id_provinsi = $request->id_provinsi;
-    // $kabupatens = Regency::where('province_id',$id_provinsi)->get();
-
     $kabupatens = Regency::where('province_id', $request->get('id_provinsi'))
     ->pluck('name', 'id');
-
-    // foreach($kabupatens as $kabupaten){
-    //     echo "<option value ='$kabupaten->id'>$kabupaten->name</option>";
-    // }
     return response()->json($kabupatens);
   }
+
+  public function getkabupaten_on(request $request)
+  {
+    $id_provinsi = $request->id_provinsi;
+    $kabupatens = Regency::where('province_id',$id_provinsi)
+                          ->where('is_status',1)->get()
+                          ->pluck('name', 'id');
+                          return response()->json($kabupatens);
+  }
+
 
   public function getkecamatan(request $request)
   {
@@ -47,15 +50,7 @@ class IndoRegionController extends Controller
 
   }
 
-  public function getkabupaten_on(request $request)
-  {
-    $id_provinsi = $request->id_provinsi;
-    $kabupatens = Regency::where('province_id',$id_provinsi)
-                          ->where('is_status',1)->get()
-                          ->pluck('name', 'id');
-                          return response()->json($kabupatens);
-  }
-
+ 
 
   public function getdesa(request $request)
   {

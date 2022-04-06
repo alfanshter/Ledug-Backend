@@ -57,7 +57,7 @@
 
                                      <div class="mb-3">
                                        <label for="recipient-name" class="col-form-label">Provinsi:</label>
-                                       <select name="provinsi_id" id="provinsi" class="form-control">
+                                       <select name="province_id" id="provinsi" class="form-control">
                                            <option value="">Pilih Provinsi...</option>
                                            @foreach ($provinces as $id => $name)
                                            <option value="{{ $id }}">{{ $name }}</option>
@@ -123,24 +123,22 @@
                                         @foreach ($multidesa as $data)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$data->judul}}</td>                                           
-                                            <td>
-                                                <div >
-                                                    <img style="height: 200px; width:200px" src="{{asset('storage/'. $data->foto)}}" alt="">
-                                                </div>
-                                            </td>
-                                            <td>{{$data->narasi}}</td>
-                                            <td>{{$data->link}}</td>
+                                            <td>{{$data->provinsi}}</td>                                           
+                                            <td>{{$data->kabupaten}}</td>                                           
+                                            <td>{{$data->kecamatan}}</td>                                           
+                                            <td>{{$data->desa}}</td>                                           
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-sm-center mt-2">
                                 
-                                                    <form action="/multidesa/delete" method="post">
+                                                    <form action="/delete_multidesa" method="post">
                                                         @csrf
-                                                        <input type="hidden" name="foto" value="{{$data->foto}}" id="foto">
                                                         <input type="hidden" name="id" value="{{$data->id}}" id="id">
+                                                        <input type="hidden" name="province_id" value="{{$data->province_id}}">
+                                                        <input type="hidden" name="kabupaten_id" value="{{$data->kabupaten_id}}">
+                                                        <input type="hidden" name="kecamatan_id" value="{{$data->kecamatan_id}}">
+                                                        <input type="hidden" name="desa_id" value="{{$data->desa_id}}">
                                                         <button class="btn btn-danger ml-2" onclick="return confirm('Apakah anda akan menghapus data ?')">Hapus</button>
                                                     </form>
-                                                    <a href="/multidesa/{{$data->id}}" class="btn btn-warning ml-2">Edit</a>
                                                 </div>
                                                 </td>                                        
 

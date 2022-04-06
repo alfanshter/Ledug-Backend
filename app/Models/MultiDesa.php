@@ -11,4 +11,10 @@ class MultiDesa extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function provinsi()
+    {
+        return $this->hasOne('App\Models\Province');
+    }
+    
 }

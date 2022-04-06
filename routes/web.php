@@ -63,4 +63,5 @@ Route::post('/getdesa_on', [IndoRegionController::class,'getdesa_on'])->name('ge
 
 //MultiDsa
 Route::get('/multidesa', [MultiDesaController::class,'index'])->name('multidesa.index')->middleware('auth');
-Route::post('/multidesa', [MultiDesaController::class,'store'])->name('multidesa.store')->middleware('auth');
+Route::post('/multidesa', [MultiDesaController::class,'store'])->name('multidesa.store')->middleware('auth');Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
+Route::post('/delete_multidesa', [MultiDesaController::class,'destroy'])->middleware('auth');

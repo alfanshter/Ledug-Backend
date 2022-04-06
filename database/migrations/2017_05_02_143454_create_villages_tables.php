@@ -29,6 +29,7 @@ class CreateVillagesTables extends Migration
                 ->on('districts')
                 ->onUpdate('cascade')->onDelete('restrict');
             $table->integer('is_status')->default(0);
+            $table->timestamps();
         });
     }
 

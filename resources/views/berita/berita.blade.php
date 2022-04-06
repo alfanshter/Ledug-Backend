@@ -197,13 +197,19 @@
                         $(function () {
                             $('#provinsi').on('change',function () {
                                 let id_provinsi = $('#provinsi').val();
+
                                 $.ajax({
-                                    type: "POST",
+                                    // type: "POST",
+                                    method: 'POST',
                                     url: "{{route('getkabupaten_on')}}",
                                     data: {id_provinsi: id_provinsi},
-                                    cache: false,
                                     success: function (response) {
-                                        $('#kabupaten').html(response);
+                                        $('#kabupaten').empty();
+                                        $('#kabupaten').html('<option value="">Pilih Kabupaten</option>');
+                                        $.each(response, function (id, name) {
+                                            $('#kabupaten').append(new Option(name, id))
+
+                                        })
                                     },
                                     error: function (data) {
                                         console.log('error',data);
@@ -217,10 +223,13 @@
                                     type: "POST",
                                     url: "{{route('getkecamatan_on')}}",
                                     data: {id_kabupaten: id_kabupaten},
-                                    cache: false,
                                     success: function (response) {
-                                        $('#kecamatan').html(response);
-                                        console.log('response',response);
+                                        $('#kecamatan').empty();
+                                        $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
+
+                                        $.each(response, function (id, name) {
+                                            $('#kecamatan').append(new Option(name, id))
+                                        })
                                     },
                                     error: function (data) {
                                         console.log('error',data);
@@ -237,7 +246,13 @@
                                     data: {id_kecamatan: id_kecamatan},
                                     cache: false,
                                     success: function (response) {
-                                        $('#desa').html(response);
+                                        $('#desa').empty();
+                                        $('#desa').html('<option value="">Pilih Desa</option>');
+
+                                        $.each(response, function (id, name) {
+                                            $('#desa').append(new Option(name, id))
+                                        })
+
                                     },
                                     error: function (data) {
                                         console.log('error',data);

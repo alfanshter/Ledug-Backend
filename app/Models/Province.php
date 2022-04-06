@@ -23,8 +23,9 @@ class Province extends Model
      *
      * @var string
      */
-    protected $table = 'provinces';
-
+    protected $guarded = [
+        'id',
+    ];
     /**
      * Province has many regencies.
      *
@@ -33,5 +34,11 @@ class Province extends Model
     public function regencies()
     {
         return $this->hasMany(Regency::class);
+    }
+
+    public function multidesa()
+    {
+        return $this->belongsTo(MultiDesa::class);
+        // OR return $this->belongsTo('App\User');
     }
 }

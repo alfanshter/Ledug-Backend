@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('multi_desas', function (Blueprint $table) {
             $table->id();
-            $table->char('provinsi_id');
+            $table->char('province_id');
             $table->char('kabupaten_id');
             $table->char('kecamatan_id');
             $table->char('desa_id');

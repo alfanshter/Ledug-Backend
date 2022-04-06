@@ -24,6 +24,7 @@ class CreateProvincesTables extends Migration
             $table->char('id', 2)->index();
             $table->string('name');
             $table->integer('is_status')->default(0);
+            $table->timestamps();
         });
     }
 
