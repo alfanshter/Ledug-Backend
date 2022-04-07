@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\IndoRegionController;
+use App\Http\Controllers\Web\LadaController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MultiDesaController;
 use App\Http\Controllers\Web\RegisterController;
@@ -65,3 +66,10 @@ Route::post('/getdesa_on', [IndoRegionController::class,'getdesa_on'])->name('ge
 Route::get('/multidesa', [MultiDesaController::class,'index'])->name('multidesa.index')->middleware('auth');
 Route::post('/multidesa', [MultiDesaController::class,'store'])->name('multidesa.store')->middleware('auth');Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
 Route::post('/delete_multidesa', [MultiDesaController::class,'destroy'])->middleware('auth');
+
+//LADA
+Route::get('/lada', [LadaController::class,'index'])->middleware('auth');
+Route::get('/lada/{id}', [LadaController::class,'edit'])->middleware('auth');
+Route::post('/lada', [LadaController::class,'store'])->middleware('auth');
+Route::post('/lada/update', [LadaController::class,'update'])->middleware('auth');
+Route::post('/lada/delete', [LadaController::class,'delete'])->middleware('auth');

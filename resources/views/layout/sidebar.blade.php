@@ -48,6 +48,12 @@
                     <span>Link TVCC</span></a>
             </li>
 
+            <li class="nav-item {{Request::is('lada') ? 'active' : ''}} ">
+                <a class="nav-link" href="/lada">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Link LADA</span></a>
+            </li>
+
        
             <li class="nav-item">
                 <a class="nav-link" href="/datasiswa">
