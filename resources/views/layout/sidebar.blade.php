@@ -62,12 +62,13 @@
                         </span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/datasiswa">
+            <li class="nav-item  {{Request::is('pasardesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/pasardesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Pasar Desa</span></a>
+                    <span>Pasar Desa
+                        </span></a>
             </li>
-
+            
             <li class="nav-item {{Request::is('admin') ? 'active' : ''}} ">
                 <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>

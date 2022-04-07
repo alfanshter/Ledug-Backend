@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaAdminController;
+use App\Http\Controllers\PasardesaController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
@@ -81,3 +82,10 @@ Route::get('/bayarbeli/{id}', [BayarBeliController::class,'edit'])->middleware('
 Route::post('/bayarbeli', [BayarBeliController::class,'store'])->middleware('auth');
 Route::post('/bayarbeli/update', [BayarBeliController::class,'update'])->middleware('auth');
 Route::post('/bayarbeli/delete', [BayarBeliController::class,'delete'])->middleware('auth');
+
+//PasarDesa
+Route::get('/pasardesa', [PasardesaController::class,'index'])->middleware('auth');
+Route::get('/pasardesa/{id}', [PasardesaController::class,'edit'])->middleware('auth');
+Route::post('/pasardesa', [PasardesaController::class,'store'])->middleware('auth');
+Route::post('/pasardesa/update', [PasardesaController::class,'update'])->middleware('auth');
+Route::post('/pasardesa/delete', [PasardesaController::class,'delete'])->middleware('auth');
