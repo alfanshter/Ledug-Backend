@@ -55,8 +55,8 @@
             </li>
 
        
-            <li class="nav-item">
-                <a class="nav-link" href="/datasiswa">
+            <li class="nav-item  {{Request::is('bayarbeli') ? 'active' : ''}} ">
+                <a class="nav-link" href="/bayarbeli">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Bayar/Beli
                         </span></a>

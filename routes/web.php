@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BeritaAdminController;
 use App\Http\Controllers\Web\AdminController;
+use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\IndoRegionController;
@@ -73,3 +74,10 @@ Route::get('/lada/{id}', [LadaController::class,'edit'])->middleware('auth');
 Route::post('/lada', [LadaController::class,'store'])->middleware('auth');
 Route::post('/lada/update', [LadaController::class,'update'])->middleware('auth');
 Route::post('/lada/delete', [LadaController::class,'delete'])->middleware('auth');
+
+//Bayar/Beli
+Route::get('/bayarbeli', [BayarBeliController::class,'index'])->middleware('auth');
+Route::get('/bayarbeli/{id}', [BayarBeliController::class,'edit'])->middleware('auth');
+Route::post('/bayarbeli', [BayarBeliController::class,'store'])->middleware('auth');
+Route::post('/bayarbeli/update', [BayarBeliController::class,'update'])->middleware('auth');
+Route::post('/bayarbeli/delete', [BayarBeliController::class,'delete'])->middleware('auth');
