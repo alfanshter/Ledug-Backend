@@ -13,8 +13,8 @@ class PasardesaController extends Controller
     public function index()
     {
         $pasardesa = Pasardesa::all();
-        return view('pasardesa.pasardesa',[
-            'pasardesa'=> $pasardesa
+        return view('pasardesa.pasardesa', [
+            'pasardesa' => $pasardesa
         ]);
     }
 
@@ -29,28 +29,25 @@ class PasardesaController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-pasardesa');
+            $validatedData['foto'] = $request->file('foto')->store('foto-pasardesa', 'public');
         }
 
         $post =  Pasardesa::insert($validatedData);
 
         return redirect('/pasardesa')->with('success', 'pasardesa berhasil di input');
-
-        
     }
 
     public function delete(Request $request)
     {
-        $delete = Pasardesa::where('id',$request->id)->delete();
+        $delete = Pasardesa::where('id', $request->id)->delete();
         Storage::delete($request->foto);
-        return redirect('/pasardesa')->with('success','Berhasil di hapus');
+        return redirect('/pasardesa')->with('success', 'Berhasil di hapus');
     }
-    
+
     public function edit($id)
     {
-        $data = Pasardesa::where('id',$id)->first();
-        return view('pasardesa.editpasardesa',['pasardesa' => $data]);
-
+        $data = Pasardesa::where('id', $id)->first();
+        return view('pasardesa.editpasardesa', ['pasardesa' => $data]);
     }
 
     public function update(Request $request)
@@ -71,11 +68,9 @@ class PasardesaController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-pasardesa');
         }
 
-        Pasardesa::where('id',$request->id)
+        Pasardesa::where('id', $request->id)
             ->update($validatedData);
-        
-            return redirect('/pasardesa')->with('success', 'Berita berhasil di update');
 
-
+        return redirect('/pasardesa')->with('success', 'Berita berhasil di update');
     }
 }

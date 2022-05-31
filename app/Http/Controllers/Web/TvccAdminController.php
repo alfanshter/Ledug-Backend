@@ -13,8 +13,8 @@ class TvccAdminController extends Controller
     public function index()
     {
         $tvcc = Tvcc::all();
-        return view('tvcc.tvcc',[
-            'tvcc'=> $tvcc
+        return view('tvcc.tvcc', [
+            'tvcc' => $tvcc
         ]);
     }
 
@@ -29,28 +29,25 @@ class TvccAdminController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-tvcc');
+            $validatedData['foto'] = $request->file('foto')->store('foto-tvcc', 'public');
         }
 
         $post =  DB::table('tvccs')->insert($validatedData);
 
         return redirect('/tvcc')->with('success', 'TVCC berhasil di input');
-
-        
     }
 
     public function delete(Request $request)
     {
-        $delete = Tvcc::where('id',$request->id)->delete();
+        $delete = Tvcc::where('id', $request->id)->delete();
         Storage::delete($request->foto);
-        return redirect('/tvcc')->with('success','Berhasil di hapus');
+        return redirect('/tvcc')->with('success', 'Berhasil di hapus');
     }
-    
+
     public function edit($id)
     {
-        $data = Tvcc::where('id',$id)->first();
-        return view('tvcc.edittvcc',['tvcc' => $data]);
-
+        $data = Tvcc::where('id', $id)->first();
+        return view('tvcc.edittvcc', ['tvcc' => $data]);
     }
 
     public function update(Request $request)
@@ -71,11 +68,9 @@ class TvccAdminController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-tvcc');
         }
 
-        Tvcc::where('id',$request->id)
+        Tvcc::where('id', $request->id)
             ->update($validatedData);
-        
-            return redirect('/tvcc')->with('success', 'Berita berhasil di update');
 
-
+        return redirect('/tvcc')->with('success', 'Berita berhasil di update');
     }
 }

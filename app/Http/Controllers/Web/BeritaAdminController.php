@@ -19,15 +19,15 @@ class BeritaAdminController extends Controller
     public function index()
     {
         // Get semua data
-        $provinces = Province::where('is_status',1)->get();
+        $provinces = Province::where('is_status', 1)->get();
         $data = DB::table('beritas')
-                    ->select(['beritas.*','provinces.name as provinsi','regencies.name as kabupaten','districts.name as kecamatan','villages.name as desa'])
-                    ->join('provinces','provinces.id','=','beritas.province_id')
-                    ->join('regencies','regencies.id','=','beritas.regencie_id')
-                    ->join('districts','districts.id','=','beritas.district_id')
-                    ->join('villages','villages.id','=','beritas.village_id')
-                    ->get();
-        return view('berita.berita',[
+            ->select(['beritas.*', 'provinces.name as provinsi', 'regencies.name as kabupaten', 'districts.name as kecamatan', 'villages.name as desa'])
+            ->join('provinces', 'provinces.id', '=', 'beritas.province_id')
+            ->join('regencies', 'regencies.id', '=', 'beritas.regencie_id')
+            ->join('districts', 'districts.id', '=', 'beritas.district_id')
+            ->join('villages', 'villages.id', '=', 'beritas.village_id')
+            ->get();
+        return view('berita.berita', [
             'berita' => $data,
             'provinces' => $provinces,
         ]);
@@ -47,28 +47,25 @@ class BeritaAdminController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-berita');
+            $validatedData['foto'] = $request->file('foto')->store('foto-berita', 'public');
         }
 
         $post =  DB::table('beritas')->insert($validatedData);
 
         return redirect('/beritadesa')->with('success', 'Berita berhasil di input');
-
-        
     }
 
     public function delete(Request $request)
     {
-        $delete = Berita::where('id',$request->id)->delete();
+        $delete = Berita::where('id', $request->id)->delete();
         Storage::delete($request->foto);
-        return redirect('/beritadesa')->with('success','Berhasil di hapus');
+        return redirect('/beritadesa')->with('success', 'Berhasil di hapus');
     }
-    
+
     public function edit($id)
     {
-        $data = Berita::where('id',$id)->first();
-        return view('berita.editberita',['berita' => $data]);
-
+        $data = Berita::where('id', $id)->first();
+        return view('berita.editberita', ['berita' => $data]);
     }
 
     public function update(Request $request)
@@ -88,12 +85,9 @@ class BeritaAdminController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-berita');
         }
 
-        Berita::where('id',$request->id)
+        Berita::where('id', $request->id)
             ->update($validatedData);
-        
-            return redirect('/beritadesa')->with('success', 'Berita berhasil di update');
 
-
+        return redirect('/beritadesa')->with('success', 'Berita berhasil di update');
     }
-    
 }

@@ -12,8 +12,8 @@ class BayarBeliController extends Controller
     public function index()
     {
         $bayarbeli = BayarBeli::all();
-        return view('bayarbeli.bayarbeli',[
-            'bayarbeli'=> $bayarbeli
+        return view('bayarbeli.bayarbeli', [
+            'bayarbeli' => $bayarbeli
         ]);
     }
 
@@ -28,28 +28,25 @@ class BayarBeliController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-bayarbeli');
+            $validatedData['foto'] = $request->file('foto')->store('foto-bayarbeli', 'public');
         }
 
         $post =  BayarBeli::insert($validatedData);
 
         return redirect('/bayarbeli')->with('success', 'bayarbeli berhasil di input');
-
-        
     }
 
     public function delete(Request $request)
     {
-        $delete = BayarBeli::where('id',$request->id)->delete();
+        $delete = BayarBeli::where('id', $request->id)->delete();
         Storage::delete($request->foto);
-        return redirect('/bayarbeli')->with('success','Berhasil di hapus');
+        return redirect('/bayarbeli')->with('success', 'Berhasil di hapus');
     }
-    
+
     public function edit($id)
     {
-        $data = BayarBeli::where('id',$id)->first();
-        return view('bayarbeli.editbayarbeli',['bayarbeli' => $data]);
-
+        $data = BayarBeli::where('id', $id)->first();
+        return view('bayarbeli.editbayarbeli', ['bayarbeli' => $data]);
     }
 
     public function update(Request $request)
@@ -70,11 +67,9 @@ class BayarBeliController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-bayarbeli');
         }
 
-        BayarBeli::where('id',$request->id)
+        BayarBeli::where('id', $request->id)
             ->update($validatedData);
-        
-            return redirect('/bayarbeli')->with('success', 'Berita berhasil di update');
 
-
+        return redirect('/bayarbeli')->with('success', 'Berita berhasil di update');
     }
 }

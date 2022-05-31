@@ -12,8 +12,8 @@ class LadaController extends Controller
     public function index()
     {
         $lada = Lada::all();
-        return view('lada.lada',[
-            'lada'=> $lada
+        return view('lada.lada', [
+            'lada' => $lada
         ]);
     }
 
@@ -28,28 +28,25 @@ class LadaController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-lada');
+            $validatedData['foto'] = $request->file('foto')->store('foto-lada', 'public');
         }
 
         $post =  Lada::insert($validatedData);
 
         return redirect('/lada')->with('success', 'lada berhasil di input');
-
-        
     }
 
     public function delete(Request $request)
     {
-        $delete = Lada::where('id',$request->id)->delete();
+        $delete = Lada::where('id', $request->id)->delete();
         Storage::delete($request->foto);
-        return redirect('/lada')->with('success','Berhasil di hapus');
+        return redirect('/lada')->with('success', 'Berhasil di hapus');
     }
-    
+
     public function edit($id)
     {
-        $data = Lada::where('id',$id)->first();
-        return view('lada.editlada',['lada' => $data]);
-
+        $data = Lada::where('id', $id)->first();
+        return view('lada.editlada', ['lada' => $data]);
     }
 
     public function update(Request $request)
@@ -70,11 +67,9 @@ class LadaController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-lada');
         }
 
-        Lada::where('id',$request->id)
+        Lada::where('id', $request->id)
             ->update($validatedData);
-        
-            return redirect('/lada')->with('success', 'Berita berhasil di update');
 
-
+        return redirect('/lada')->with('success', 'Berita berhasil di update');
     }
 }
