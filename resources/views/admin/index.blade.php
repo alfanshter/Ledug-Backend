@@ -77,12 +77,43 @@
                                       </div>
 
                                       <div class="mb-3">
-                                        <label for="recipient-name" class="col-form-label">Desa:</label>
-                                        <input type="text" class="form-control" id="email" required name="email" value="{{old('email')}}">
+                                        <label for="recipient-name" class="col-form-label">Provinsi:</label>
+                                        <select name="province_id" id="provinsi" class="form-control">
+                                            <option value="">Pilih Provinsi...</option>
+                                            @foreach ($provinces as $provinsi)
+                                            <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>                                                
+                                            @endforeach
+
+                                        </select>
                                       </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Kabupaten/Kota:</label>
+                                        <select name="regencie_id" id="kabupaten" class="form-control">
+                                            <option value="">Pilih Kabupaten...</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Kecamatan:</label>
+                                        <select name="district_id" id="kecamatan" class="form-control">
+                                            <option value="">Pilih Kecamatan...</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Desa:</label>
+                                        <select name="village_id" id="desa" class="form-control">
+                                            <option value="">Pilih Desa...</option>
+                                        </select>
+                                      </div>
+
+
+
+
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Password:</label>
-                                        <input type="text" class="form-control" id="nim" required name="nim" value="{{old('nim')}}">
+                                        <input type="text" class="form-control" id="password" required name="password" value="{{old('password')}}">
                                       </div>
 
                                       <div class="modal-footer">
@@ -110,6 +141,10 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Username</th>
+                                            <th>Provinsi</th>
+                                            <th>Kabupaten/Kota</th>
+                                            <th>Kecamatan</th>
+                                            <th>Desa</th>
                                             <th class="align-middle text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -119,6 +154,10 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$data->name}}</td>
                                             <td>{{$data->email}}</td>
+                                            <td>{{$data->provinsi->name}}</td>
+                                            <td>{{$data->kabupaten->name}}</td>
+                                            <td>{{$data->kecamatan->name}}</td>
+                                            <td>{{$data->desa->name}}</td>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-sm-center mt-2">
                                                     
@@ -141,5 +180,80 @@
                             </div>
                         </div>
                     </div>
+
+                     <script>
+                        $(function () {
+                            $.ajaxSetup({
+                                headers: {'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')}
+                            })
+                          })
+                        
+                        $(function () {
+                            $('#provinsi').on('change',function () {
+                                let id_provinsi = $('#provinsi').val();
+
+                                $.ajax({
+                                    // type: "POST",
+                                    method: 'POST',
+                                    url: "{{route('getkabupaten_on')}}",
+                                    data: {id_provinsi: id_provinsi},
+                                    success: function (response) {
+                                        $('#kabupaten').empty();
+                                        $('#kabupaten').html('<option value="">Pilih Kabupaten</option>');
+                                        $.each(response, function (id, name) {
+                                            $('#kabupaten').append(new Option(name, id))
+
+                                        })
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+
+                              $('#kabupaten').on('change',function () {
+                                let id_kabupaten = $('#kabupaten').val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{route('getkecamatan_on')}}",
+                                    data: {id_kabupaten: id_kabupaten},
+                                    success: function (response) {
+                                        $('#kecamatan').empty();
+                                        $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
+
+                                        $.each(response, function (id, name) {
+                                            $('#kecamatan').append(new Option(name, id))
+                                        })
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+
+                              $('#kecamatan').on('change',function () {
+                                let id_kecamatan = $('#kecamatan').val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{route('getdesa_on')}}",
+                                    data: {id_kecamatan: id_kecamatan},
+                                    cache: false,
+                                    success: function (response) {
+                                        $('#desa').empty();
+                                        $('#desa').html('<option value="">Pilih Desa</option>');
+
+                                        $.each(response, function (id, name) {
+                                            $('#desa').append(new Option(name, id))
+                                        })
+
+                                    },
+                                    error: function (data) {
+                                        console.log('error',data);
+                                      }
+                                });
+                              })
+                          })
+                    </script>
 
 @endsection

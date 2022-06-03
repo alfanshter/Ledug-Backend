@@ -24,10 +24,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('kabupaten')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('desa')->nullable();
+            $table->char('province_id')->nullable();
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade')->onUpdate('cascade');
+            $table->char('regencie_id')->nullable();
+            $table->foreign('regencie_id')->references('id')->on('regencies')->onDelete('cascade')->onUpdate('cascade');
+            $table->char('district_id')->nullable();
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade')->onUpdate('cascade');
+            $table->char('village_id')->nullable();
+            $table->foreign('village_id')->references('id')->on('villages')->onDelete('cascade')->onUpdate('cascade');
             $table->string('alamat_lengkap')->nullable();
             $table->rememberToken();
             $table->timestamps();

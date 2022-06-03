@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,16 +13,30 @@ class AdminController extends Controller
 {
     public function index()
     {
+        // Get semua data
+        $provinces = Province::where('is_status', 1)->get();
 
-        return view('admin.index',[
-            'dataadmin' => User::where('role',1)->get()
+        $data = User::where('role', 1)->get();
+
+
+        return view('admin.index', [
+            'dataadmin' => $data,
+            'provinces' => $provinces
         ]);
     }
 
     public function edit($id)
     {
-        return view('admin.editadmin',[
-            'dataadmin' => User::where('id',$id)->first()
+        $provinces = Province::where('is_status', 1)->get();
+        $data = User::where('id', $id)
+            ->with('provinsi')
+            ->with('kabupaten')
+            ->with('kecamatan')
+            ->with('desa')
+            ->first();
+        return view('admin.editadmin', [
+            'dataadmin' => $data,
+            'provinces' => $provinces
         ]);
     }
 
@@ -30,47 +45,54 @@ class AdminController extends Controller
         $rule = [
             'name' => 'required|max:255',
             'email' => ['required'],
+            'province_id' => ['required'],
+            'regencie_id' => ['required'],
+            'district_id' => ['required'],
+            'village_id' => ['required']
         ];
         //Apakah username sama ? 
-        $getuser = User::where('id',$request->id)->first();
-        if ($request->nim !=$getuser->nim) {
+        $getuser = User::where('id', $request->id)->first();
+        if ($request->nim != $getuser->nim) {
             $rule['email'] = 'required|unique:users';
         }
 
         $validation = $request->validate($rule);
 
-        if ($request->password !=null) {
+        if ($request->password != null) {
             $validation['password'] = Hash::make($request->password);
         }
-        
 
 
-        User::where('id',$request->id)
+
+        User::where('id', $request->id)
             ->update($validation);
 
-        return redirect('/admin')->with('success','Update Admin Berhasil');
-
+        return redirect('/admin')->with('success', 'Update Admin Berhasil');
     }
 
     public function destroy($id)
     {
 
         User::destroy($id);
-            return redirect('/admin')->with('success', 'Admin berhasil di hapus ');
+        return redirect('/admin')->with('success', 'Admin berhasil di hapus ');
     }
 
 
     public function insert(Request $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => 1,
-            'password' => Hash::make($request->password)
-         ]);
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'password' => 'required',
+            'province_id' => 'required',
+            'regencie_id' => 'required',
+            'district_id' => 'required',
+            'village_id' => 'required'
 
-         return redirect('/admin')->with('success', 'Admin berhasil di input     ');
+        ]);
+        $validatedData['role'] = 1;
+        $user = User::create($validatedData);
 
-
+        return redirect('/admin')->with('success', 'Admin berhasil di input     ');
     }
 }
