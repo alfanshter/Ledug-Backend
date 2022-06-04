@@ -7,10 +7,10 @@
                     <i class="fas fa-laugh-wink"></i>
                 </div>
                 @if (auth()->user()->role ==0)
-                <div class="sidebar-brand-text mx-3">Admin</div>                    
+                <div class="sidebar-brand-text mx-3">Super Admin</div>                    
                 @endif
                 @if (auth()->user()->role ==1)
-                <div class="sidebar-brand-text mx-3">Siswa</div>                    
+                <div class="sidebar-brand-text mx-3">Admin</div>                    
                 @endif
                 @if (auth()->user()->role ==2)
                 <div class="sidebar-brand-text mx-3">Pelatih</div>                    
@@ -28,7 +28,7 @@
          
 
             <!-- Nav Item - Pages Collapse Menu -->
-            {{-- ==================== ADMIN ===================== --}}
+            {{-- ==================== Super Admin ===================== --}}
             @if (auth()->user()->role==0 )
             <li class="nav-item {{Request::is('beritadesa') ? 'active' : ''}} ">
                 <a class="nav-link" href="/beritadesa">
@@ -80,6 +80,62 @@
             {{-- ==================== END ADMIN ===================== --}}
 
       
+              {{-- ==================== Admin ===================== --}}
+            @if (auth()->user()->role==1 )
+            <li class="nav-item {{Request::is('banner_admin') ? 'active' : ''}} ">
+                <a class="nav-link" href="/banner_admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Banner</span></a>
+            </li>
+            <li class="nav-item {{Request::is('beritadesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/beritadesa">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Berita Desa</span></a>
+            </li>
+
+            <li class="nav-item {{Request::is('multidesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/multidesa">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Multi Desa</span></a>
+            </li>
+
+            <li class="nav-item {{Request::is('tvcc') ? 'active' : ''}} ">
+                <a class="nav-link" href="/tvcc">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Link TVCC</span></a>
+            </li>
+
+            <li class="nav-item {{Request::is('lada') ? 'active' : ''}} ">
+                <a class="nav-link" href="/lada">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Link LADA</span></a>
+            </li>
+
+       
+            <li class="nav-item  {{Request::is('bayarbeli') ? 'active' : ''}} ">
+                <a class="nav-link" href="/bayarbeli">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Bayar/Beli
+                        </span></a>
+            </li>
+
+            <li class="nav-item  {{Request::is('pasardesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/pasardesa">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Pasar Desa
+                        </span></a>
+            </li>
+            
+            <li class="nav-item {{Request::is('admin') ? 'active' : ''}} ">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Admin</span></a>
+            </li>
+
+
+            @endif
+            {{-- ==================== ADMIN ===================== --}}
+
                         <!-- Nav Item - Pages Collapse Menu -->
 
 

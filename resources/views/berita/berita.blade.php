@@ -56,25 +56,9 @@
 
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">foto:</label>
-                                        <img class="img-preview img-fluid">
-                                        <input type="file" class="form-control" id="foto" required name="foto" value="{{old('foto')}}" onchange="previewImage()">
-                                        <script>
-                                            function previewImage(){
-                                                const  image = document.querySelector('#foto');
-                                                const imgPreview = document.querySelector('.img-preview');
-                                        
-                                                imgPreview.style.display = 'block';
-                                        
-                                                const oFReader = new FileReader();
-                                                oFReader.readAsDataURL(foto.files[0]);
-                                        
-                                                oFReader.onload = function(oFREvent) {
-                                                    imgPreview.src = oFREvent.target.result;            
-                                                }
-                                        
-                                            }
-                                        
-                                        </script>
+                                        <img class="img-preview-edit img-fluid">
+                                        <input type="file" class="form-control" id="foto" required name="foto" value="{{old('foto')}}" onchange="previewBerita()">
+                                       
                                       </div>
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Narasi:</label>
@@ -188,6 +172,21 @@
 
 
                     <script>
+                        function previewBerita(){
+                                                const  image = document.querySelector('#foto');
+                                                const imgPreviewBerita = document.querySelector('.img-preview-edit');
+                                        
+                                                imgPreviewBerita.style.display = 'block';
+                                        
+                                                const oFReader = new FileReader();
+                                                oFReader.readAsDataURL(foto.files[0]);
+                                        
+                                                oFReader.onload = function(oFREvent) {
+                                                    imgPreviewBerita.src = oFREvent.target.result;            
+                                                }
+                                        
+                                            }
+                                            
                         $(function () {
                             $.ajaxSetup({
                                 headers: {'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')}

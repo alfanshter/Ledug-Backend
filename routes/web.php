@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BeritaAdminController;
 use App\Http\Controllers\PasardesaController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
@@ -25,67 +27,83 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class,'index'])->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class,'authenticate']);
-Route::post('/logout', [LoginController::class,'logout']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', [RegisterController::class,'index'])->middleware('guest');
-Route::post('/register', [RegisterController::class,'store']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
 
-//Admin
-Route::get('/admin', [AdminController::class,'index'])->middleware('auth');
-Route::post('/admin', [AdminController::class,'insert'])->middleware('auth');
-Route::post('/admin/updateadmin', [AdminController::class,'update'])->middleware('auth');
-Route::get('/admin/editadmin/{id}', [AdminController::class,'edit'])->middleware('auth');
-Route::delete('/admin/hapusadmin/{id}', [AdminController::class,'destroy'])->middleware('auth');
+//============================Admin==================================
+//superadmin
+Route::get('/admin', [AdminController::class, 'index'])->middleware('superadmin');
+Route::post('/admin', [AdminController::class, 'insert'])->middleware('superadmin');
+Route::post('/admin/updateadmin', [AdminController::class, 'update'])->middleware('superadmin');
+Route::get('/admin/editadmin/{id}', [AdminController::class, 'edit'])->middleware('superadmin');
+Route::delete('/admin/hapusadmin/{id}', [AdminController::class, 'destroy'])->middleware('superadmin');
+
+//============================End Admin==================================
 
 //Berita
-Route::get('/beritadesa', [WebBeritaAdminController::class,'index'])->middleware('auth');
-Route::get('/beritadesa/{id}', [WebBeritaAdminController::class,'edit'])->middleware('auth');
-Route::post('/beritadesa', [WebBeritaAdminController::class,'store'])->middleware('auth');
-Route::post('/beritadesa/update', [WebBeritaAdminController::class,'update'])->middleware('auth');
-Route::post('/beritadesa/delete', [WebBeritaAdminController::class,'delete'])->middleware('auth');
+Route::get('/beritadesa', [WebBeritaAdminController::class, 'index'])->middleware('superadmin');
+Route::get('/beritadesa/{id}', [WebBeritaAdminController::class, 'edit'])->middleware('superadmin');
+Route::post('/beritadesa', [WebBeritaAdminController::class, 'store'])->middleware('superadmin');
+Route::post('/beritadesa/update', [WebBeritaAdminController::class, 'update'])->middleware('superadmin');
+Route::post('/beritadesa/delete', [WebBeritaAdminController::class, 'delete'])->middleware('superadmin');
 
 //TVCC
-Route::get('/tvcc', [TvccAdminController::class,'index'])->middleware('auth');
-Route::get('/tvcc/{id}', [TvccAdminController::class,'edit'])->middleware('auth');
-Route::post('/tvcc', [TvccAdminController::class,'store'])->middleware('auth');
-Route::post('/tvcc/update', [TvccAdminController::class,'update'])->middleware('auth');
-Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
+Route::get('/tvcc', [TvccAdminController::class, 'index'])->middleware('superadmin');
+Route::get('/tvcc/{id}', [TvccAdminController::class, 'edit'])->middleware('superadmin');
+Route::post('/tvcc', [TvccAdminController::class, 'store'])->middleware('superadmin');
+Route::post('/tvcc/update', [TvccAdminController::class, 'update'])->middleware('superadmin');
+Route::post('/tvcc/delete', [TvccAdminController::class, 'delete'])->middleware('superadmin');
 
 //RegionController
-Route::post('/getkabupaten', [IndoRegionController::class,'getkabupaten'])->name('getkabupaten');
-Route::post('/getkecamatan', [IndoRegionController::class,'getkecamatan'])->name('getkecamatan');
-Route::post('/getdesa', [IndoRegionController::class,'getdesa'])->name('getdesa');
-Route::post('/getkabupaten_on', [IndoRegionController::class,'getkabupaten_on'])->name('getkabupaten_on');
-Route::post('/getkecamatan_on', [IndoRegionController::class,'getkecamatan_on'])->name('getkecamatan_on');
-Route::post('/getdesa_on', [IndoRegionController::class,'getdesa_on'])->name('getdesa_on');
+Route::post('/getkabupaten', [IndoRegionController::class, 'getkabupaten'])->name('getkabupaten');
+Route::post('/getkecamatan', [IndoRegionController::class, 'getkecamatan'])->name('getkecamatan');
+Route::post('/getdesa', [IndoRegionController::class, 'getdesa'])->name('getdesa');
+Route::post('/getkabupaten_on', [IndoRegionController::class, 'getkabupaten_on'])->name('getkabupaten_on');
+Route::post('/getkecamatan_on', [IndoRegionController::class, 'getkecamatan_on'])->name('getkecamatan_on');
+Route::post('/getdesa_on', [IndoRegionController::class, 'getdesa_on'])->name('getdesa_on');
 
 
 //MultiDsa
-Route::get('/multidesa', [MultiDesaController::class,'index'])->name('multidesa.index')->middleware('auth');
-Route::post('/multidesa', [MultiDesaController::class,'store'])->name('multidesa.store')->middleware('auth');Route::post('/tvcc/delete', [TvccAdminController::class,'delete'])->middleware('auth');
-Route::post('/delete_multidesa', [MultiDesaController::class,'destroy'])->middleware('auth');
+Route::get('/multidesa', [MultiDesaController::class, 'index'])->name('multidesa.index')->middleware('superadmin');
+Route::post('/multidesa', [MultiDesaController::class, 'store'])->name('multidesa.store')->middleware('superadmin');
+Route::post('/tvcc/delete', [TvccAdminController::class, 'delete'])->middleware('superadmin');
+Route::post('/delete_multidesa', [MultiDesaController::class, 'destroy'])->middleware('superadmin');
 
 //LADA
-Route::get('/lada', [LadaController::class,'index'])->middleware('auth');
-Route::get('/lada/{id}', [LadaController::class,'edit'])->middleware('auth');
-Route::post('/lada', [LadaController::class,'store'])->middleware('auth');
-Route::post('/lada/update', [LadaController::class,'update'])->middleware('auth');
-Route::post('/lada/delete', [LadaController::class,'delete'])->middleware('auth');
+Route::get('/lada', [LadaController::class, 'index'])->middleware('superadmin');
+Route::get('/lada/{id}', [LadaController::class, 'edit'])->middleware('superadmin');
+Route::post('/lada', [LadaController::class, 'store'])->middleware('superadmin');
+Route::post('/lada/update', [LadaController::class, 'update'])->middleware('superadmin');
+Route::post('/lada/delete', [LadaController::class, 'delete'])->middleware('superadmin');
 
 //Bayar/Beli
-Route::get('/bayarbeli', [BayarBeliController::class,'index'])->middleware('auth');
-Route::get('/bayarbeli/{id}', [BayarBeliController::class,'edit'])->middleware('auth');
-Route::post('/bayarbeli', [BayarBeliController::class,'store'])->middleware('auth');
-Route::post('/bayarbeli/update', [BayarBeliController::class,'update'])->middleware('auth');
-Route::post('/bayarbeli/delete', [BayarBeliController::class,'delete'])->middleware('auth');
+Route::get('/bayarbeli', [BayarBeliController::class, 'index'])->middleware('superadmin');
+Route::get('/bayarbeli/{id}', [BayarBeliController::class, 'edit'])->middleware('superadmin');
+Route::post('/bayarbeli', [BayarBeliController::class, 'store'])->middleware('superadmin');
+Route::post('/bayarbeli/update', [BayarBeliController::class, 'update'])->middleware('superadmin');
+Route::post('/bayarbeli/delete', [BayarBeliController::class, 'delete'])->middleware('superadmin');
 
 //PasarDesa
-Route::get('/pasardesa', [PasardesaController::class,'index'])->middleware('auth');
-Route::get('/pasardesa/{id}', [PasardesaController::class,'edit'])->middleware('auth');
-Route::post('/pasardesa', [PasardesaController::class,'store'])->middleware('auth');
-Route::post('/pasardesa/update', [PasardesaController::class,'update'])->middleware('auth');
-Route::post('/pasardesa/delete', [PasardesaController::class,'delete'])->middleware('auth');
+Route::get('/pasardesa', [PasardesaController::class, 'index'])->middleware('superadmin');
+Route::get('/pasardesa/{id}', [PasardesaController::class, 'edit'])->middleware('superadmin');
+Route::post('/pasardesa', [PasardesaController::class, 'store'])->middleware('superadmin');
+Route::post('/pasardesa/update', [PasardesaController::class, 'update'])->middleware('superadmin');
+Route::post('/pasardesa/delete', [PasardesaController::class, 'delete'])->middleware('superadmin');
+
+//============================Banner==================================
+Route::get('/banner_admin', [BannerController::class, 'index_admin'])->middleware('admin');
+Route::post('/banner_admin', [BannerController::class, 'tambahbanner_admin'])->middleware('admin');
+Route::post('/update_banner_admin', [BannerController::class, 'update_banner_admin'])->middleware('admin');
+Route::post('/hapusbanner_admin', [BannerController::class, 'hapusbanner_admin'])->middleware('admin');
+//============================END Banner==================================
+
+//============================Profile==================================
+Route::get('/profil_admin', [AdminController::class, 'profil_admin'])->middleware('admin');
+Route::post('/edit_profil_admin', [AdminController::class, 'edit_profil_admin'])->middleware('admin');
+//============================End Profile==================================

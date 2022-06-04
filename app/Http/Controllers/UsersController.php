@@ -19,15 +19,15 @@ class UsersController extends Controller
      */
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required',
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors());       
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
         }
 
         $user = User::create([
@@ -35,30 +35,23 @@ class UsersController extends Controller
             'email' => $request->email,
             'role' => $request->role,
             'password' => Hash::make($request->password)
-         ]);
+        ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $response = [
             'data' => $user,
-            'access_token' =>$token,
-            'token_type' =>'Bearer',
+            'access_token' => $token,
+            'token_type' => 'Bearer',
             'status' => 1
         ];
 
-        return response()->json($response,Response::HTTP_CREATED);
+        return response()->json($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password')))
-        {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()
                 ->json(['message' => 'Unauthorized'], 401);
         }
@@ -69,43 +62,27 @@ class UsersController extends Controller
 
         $response = [
             'data' => $user,
-            'access_token' =>$token,
-            'token_type' =>'Bearer',
+            'access_token' => $token,
+            'token_type' => 'Bearer',
             'status' => 1
         ];
 
-        return response()->json($response,Response::HTTP_CREATED);
-
+        return response()->json($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(User $user){
+
+    public function logout(User $user)
+    {
 
         $user->tokens()->delete();
-        
+
         $response = [
             'status' => 1
         ];
 
-        return response()->json($response,Response::HTTP_CREATED);
+        return response()->json($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

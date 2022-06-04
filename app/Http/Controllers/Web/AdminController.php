@@ -95,4 +95,38 @@ class AdminController extends Controller
 
         return redirect('/admin')->with('success', 'Admin berhasil di input     ');
     }
+
+    public function profil_admin()
+    {
+        $data = User::where('id', auth()->user()->id)->first();
+        return view('admin.profiladmin', [
+            'profil' => $data
+        ]);
+    }
+
+    public function edit_profil_admin(Request $request)
+    {
+        $rule = [
+            'name' => 'required|max:255',
+            'email' => ['required']
+        ];
+        //Apakah username sama ? 
+        $getuser = User::where('id', $request->id)->first();
+        if ($request->email != $getuser->email) {
+            $rule['email'] = 'required|unique:users';
+        }
+
+        $validation = $request->validate($rule);
+
+        if ($request->password != null) {
+            $validation['password'] = Hash::make($request->password);
+        }
+
+
+
+        User::where('id', $request->id)
+            ->update($validation);
+
+        return redirect('/profil_admin')->with('success', 'Update Admin Berhasil');
+    }
 }
