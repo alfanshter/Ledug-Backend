@@ -46,13 +46,16 @@ Route::delete('/admin/hapusadmin/{id}', [AdminController::class, 'destroy'])->mi
 
 //============================End Admin==================================
 
-//Berita
+//============================Berita==================================
+//superadmin
 Route::get('/beritadesa', [WebBeritaAdminController::class, 'index'])->middleware('superadmin');
 Route::get('/beritadesa/{id}', [WebBeritaAdminController::class, 'edit'])->middleware('superadmin');
 Route::post('/beritadesa', [WebBeritaAdminController::class, 'store'])->middleware('superadmin');
 Route::post('/beritadesa/update', [WebBeritaAdminController::class, 'update'])->middleware('superadmin');
 Route::post('/beritadesa/delete', [WebBeritaAdminController::class, 'delete'])->middleware('superadmin');
-
+//admin
+//============================END Berita==================================
+Route::get('/beritadesa_admin', [WebBeritaAdminController::class, 'index_admin'])->middleware('admin');
 //TVCC
 Route::get('/tvcc', [TvccAdminController::class, 'index'])->middleware('superadmin');
 Route::get('/tvcc/{id}', [TvccAdminController::class, 'edit'])->middleware('superadmin');

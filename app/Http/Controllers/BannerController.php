@@ -19,7 +19,9 @@ class BannerController extends Controller
     public function tambahbanner_admin(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
+            'judul' => 'required|max:255',
+            'deskripsi' => 'required|max:255',
+            'link' => 'required|max:255',
             'foto' => 'image|file|max:1024',
             'province_id' => 'required',
             'regencie_id' => 'required',
@@ -40,7 +42,9 @@ class BannerController extends Controller
     public function update_banner_admin(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
+            'judul' => 'required|max:255',
+            'deskripsi' => 'required|max:255',
+            'link' => 'required|max:255',
             'foto' => 'image|file|max:1024'
         ]);
 

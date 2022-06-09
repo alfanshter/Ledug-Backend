@@ -50,8 +50,18 @@
                     <input type="hidden" name="district_id" value="{{auth()->user()->district_id}}">
                     <input type="hidden" name="village_id" value="{{auth()->user()->village_id}}">
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">nama:</label>
-                        <input type="text" class="form-control" id="nama" required name="nama" value="{{old('nama')}}">
+                        <label for="recipient-name" class="col-form-label">judul:</label>
+                        <input type="text" class="form-control" id="judul" required name="judul" value="{{old('judul')}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Deskripsi:</label>
+                        <input type="text" class="form-control" id="deskripsi" required name="deskripsi" value="{{old('deskripsi')}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Link:</label>
+                        <input type="text" class="form-control" id="link" required name="link" value="{{old('link')}}">
                     </div>
 
                     <div class="mb-3">
@@ -100,7 +110,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>Link</th>
                         <th>Foto</th>
                         <th class="align-middle text-center">Action</th>
                     </tr>
@@ -109,7 +121,9 @@
                     @foreach ($banner as $data)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$data->nama}}</td>
+                        <td>{{$data->judul}}</td>
+                        <td>{{$data->deskripsi}}</td>
+                        <td>{{$data->link}}</td>
                         <td>
                             <div>
                                 <img style="height: 200px; width:200px" src="{{asset('storage/'. $data->foto)}}" alt="">
@@ -141,8 +155,18 @@
                                                     <input type="hidden" name="oldImage" value="{{$data->foto}}">
                                                     <input type="hidden" name="id" value="{{$data->id}}">
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">nama:</label>
-                                                        <input type="text" class="form-control" id="nama" required name="nama" value="{{old('nama',$data->nama)}}">
+                                                        <label for="recipient-name" class="col-form-label">judul:</label>
+                                                        <input type="text" class="form-control" id="judul" required name="judul" value="{{old('judul',$data->judul)}}">
+                                                    </div>
+
+                                                     <div class="mb-3">
+                                                        <label for="recipient-name" class="col-form-label">Deskripsi:</label>
+                                                        <input type="text" class="form-control" id="deskripsi" required name="deskripsi" value="{{old('deskripsi',$data->deskripsi)}}">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name" class="col-form-label">Link:</label>
+                                                        <input type="text" class="form-control" id="link" required name="link" value="{{old('link',$data->link)}}">
                                                     </div>
 
                                                     <div class="mb-3">

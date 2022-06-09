@@ -33,6 +33,23 @@ class BeritaAdminController extends Controller
         ]);
     }
 
+    public function index_admin()
+    {
+        // Get semua data
+        $provinces = Province::where('is_status', 1)->get();
+        $data = DB::table('beritas')
+            ->select(['beritas.*', 'provinces.name as provinsi', 'regencies.name as kabupaten', 'districts.name as kecamatan', 'villages.name as desa'])
+            ->join('provinces', 'provinces.id', '=', 'beritas.province_id')
+            ->join('regencies', 'regencies.id', '=', 'beritas.regencie_id')
+            ->join('districts', 'districts.id', '=', 'beritas.district_id')
+            ->join('villages', 'villages.id', '=', 'beritas.village_id')
+            ->get();
+        return view('berita.berita_admin', [
+            'berita' => $data,
+            'provinces' => $provinces,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

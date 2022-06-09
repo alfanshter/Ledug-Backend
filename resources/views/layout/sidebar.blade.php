@@ -90,19 +90,19 @@
             <li class="nav-item {{Request::is('beritadesa') ? 'active' : ''}} ">
                 <a class="nav-link" href="/beritadesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Berita Desa</span></a>
+                    <span>Profil Desa</span></a>
             </li>
 
             <li class="nav-item {{Request::is('multidesa') ? 'active' : ''}} ">
                 <a class="nav-link" href="/multidesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Multi Desa</span></a>
+                    <span>Fasilitas Desa</span></a>
             </li>
 
-            <li class="nav-item {{Request::is('tvcc') ? 'active' : ''}} ">
-                <a class="nav-link" href="/tvcc">
+            <li class="nav-item {{Request::is('beritadesa_admin') ? 'active' : ''}} ">
+                <a class="nav-link" href="/beritadesa_admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Link TVCC</span></a>
+                    <span>Berita Desa</span></a>
             </li>
 
             <li class="nav-item {{Request::is('lada') ? 'active' : ''}} ">
