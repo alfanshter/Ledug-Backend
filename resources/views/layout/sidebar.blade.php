@@ -87,11 +87,23 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Banner</span></a>
             </li>
-            <li class="nav-item {{Request::is('beritadesa') ? 'active' : ''}} ">
-                <a class="nav-link" href="/beritadesa">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Profil Desa</span></a>
+             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{Request::is('profildesa') ? 'active' : ''}}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Profil Desa</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Profil Desa:</h6>
+                        <a class="collapse-item" href="/profildesa">Profil</a>
+                        <a class="collapse-item" href="/gambardesa">Gambar Desa</a>
+                        <a class="collapse-item" href="/datastatistik_desa">Data statistik</a>
+                    </div>
+                </div>
             </li>
+
 
             <li class="nav-item {{Request::is('multidesa') ? 'active' : ''}} ">
                 <a class="nav-link" href="/multidesa">

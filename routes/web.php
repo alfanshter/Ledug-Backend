@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BannerController;
+use App\Http\Controllers\Web\BannerController;
 use App\Http\Controllers\BeritaAdminController;
 use App\Http\Controllers\PasardesaController;
 use App\Http\Controllers\UsersController;
@@ -8,10 +8,13 @@ use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\DataStatistikDesaController;
+use App\Http\Controllers\Web\GambarDesaController;
 use App\Http\Controllers\Web\IndoRegionController;
 use App\Http\Controllers\Web\LadaController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MultiDesaController;
+use App\Http\Controllers\Web\ProfilDesaController;
 use App\Http\Controllers\Web\RegisterController;
 use App\Http\Controllers\Web\TvccAdminController;
 use Illuminate\Support\Facades\Route;
@@ -109,4 +112,17 @@ Route::post('/hapusbanner_admin', [BannerController::class, 'hapusbanner_admin']
 //============================Profile==================================
 Route::get('/profil_admin', [AdminController::class, 'profil_admin'])->middleware('admin');
 Route::post('/edit_profil_admin', [AdminController::class, 'edit_profil_admin'])->middleware('admin');
+//============================End Profile==================================
+
+//============================Profile Desa==================================
+//profil
+Route::get('/profildesa', [ProfilDesaController::class, 'profil'])->middleware('admin');
+Route::post('/update_profildesa', [ProfilDesaController::class, 'update_profildesa'])->middleware('admin');
+//gambardesa
+Route::get('/gambardesa', [GambarDesaController::class, 'index_admin'])->middleware('admin');
+Route::post('/tambah_gambardesa', [GambarDesaController::class, 'tambah_gambardesa'])->middleware('admin');
+//Data statistik
+Route::get('/datastatistik_desa', [DataStatistikDesaController::class, 'index_admin'])->middleware('admin');
+Route::post('/tambah_datastatistik_desa', [DataStatistikDesaController::class, 'tambah_data'])->middleware('admin');
+
 //============================End Profile==================================
