@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\DataStatistikDesaController;
+use App\Http\Controllers\Web\FasilitasDesaController;
 use App\Http\Controllers\Web\GambarDesaController;
 use App\Http\Controllers\Web\IndoRegionController;
 use App\Http\Controllers\Web\LadaController;
@@ -124,5 +125,10 @@ Route::post('/tambah_gambardesa', [GambarDesaController::class, 'tambah_gambarde
 //Data statistik
 Route::get('/datastatistik_desa', [DataStatistikDesaController::class, 'index_admin'])->middleware('admin');
 Route::post('/tambah_datastatistik_desa', [DataStatistikDesaController::class, 'tambah_data'])->middleware('admin');
-
 //============================End Profile==================================
+
+//============================Fasilitas Desa======================================
+Route::get('/fasilitasdesa', [FasilitasDesaController::class, 'index_admin'])->middleware('admin');
+Route::post('/tambah_fasilitas_admin', [FasilitasDesaController::class, 'tambah_fasilitas_admin'])->middleware('admin');
+
+//============================END Fasilitas Desa==================================

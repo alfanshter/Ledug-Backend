@@ -88,7 +88,7 @@
                     <span>Banner</span></a>
             </li>
              <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{Request::is('profildesa') ? 'active' : ''}}">
+            <li class="nav-item {{Request::is(['profildesa','gambardesa','datastatistik_desa']) ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -105,8 +105,8 @@
             </li>
 
 
-            <li class="nav-item {{Request::is('multidesa') ? 'active' : ''}} ">
-                <a class="nav-link" href="/multidesa">
+            <li class="nav-item {{Request::is('fasilitasdesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/fasilitasdesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Fasilitas Desa</span></a>
             </li>
