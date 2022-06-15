@@ -56,6 +56,7 @@ class BeritaAdminController extends Controller
             'judul' => 'required|max:255',
             'foto' => 'image|file|max:1024',
             'narasi' => 'required',
+            'tanggal_terbit' => 'required',
             'province_id' => 'required',
             'regencie_id' => 'required',
             'district_id' => 'required',
@@ -63,9 +64,27 @@ class BeritaAdminController extends Controller
 
         ]);
 
+        $cekvideo = 0;
+        if ($request->video) {
+            $cekvideo = 1;
+        }
+
+        if ($request->link) {
+            $cekvideo = 0;
+        }
+
+
         if ($request->file('foto')) {
             $validatedData['foto'] = $request->file('foto')->store('foto-berita', 'public');
         }
+
+
+        if ($cekvideo == 1) {
+            $validatedData['video'] = $request->file('video')->store('video-berita', 'public');
+        } else {
+            $validatedData['video'] = $request->link;
+        }
+
 
         $post =  DB::table('beritas')->insert($validatedData);
 

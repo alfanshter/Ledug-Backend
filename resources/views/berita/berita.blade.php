@@ -3,7 +3,14 @@
 
 @section('konten')
 
-    
+<?php 
+$ekstensi_video = array(
+    'mp4',
+    'jpg',
+    'jpeg',
+    'png'
+);
+?>    
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Berita</h1>
                     @if (auth()->user()->role ==0)
@@ -16,6 +23,11 @@
                     @endif
                     
                     @error('judul')
+                    <div class="alert alert-danger mt-2" role="alert">
+                        {{$message}}  
+                    </div>                        
+                    @enderror
+                    @error('video')
                     <div class="alert alert-danger mt-2" role="alert">
                         {{$message}}  
                     </div>                        
@@ -54,15 +66,43 @@
                                         <input type="text" class="form-control" id="judul" required name="judul" value="{{old('judul')}}">
                                       </div>
 
-                                      <div class="mb-3">
+                                      <div class="mb-3" id="foto">
                                         <label for="recipient-name" class="col-form-label">foto:</label>
                                         <img class="img-preview-edit img-fluid">
                                         <input type="file" class="form-control" id="foto" required name="foto" value="{{old('foto')}}" onchange="previewBerita()">
                                        
                                       </div>
+
+                                       <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                        <select name="province_id" id="list_video" class="form-control">
+                                            <option value="">Pilih ...</option>
+                                            <option value="Link">Link Youtube</option>                                                
+                                            <option value="Video">Upload File Local</option>                                                
+
+                                        </select>
+                                      </div>
+
+                                       <div class="mb-3"  id="video" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                        <img class="img-preview-edit img-fluid">
+                                        <input type="file" class="form-control" id="data_video" required name="video" value="{{old('video')}}">
+                                       
+                                      </div>
+
+                                      <div class="mb-3" id="link" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">Link:</label>
+                                        <input type="text" class="form-control" id="data_link" required name="link" value="{{old('link')}}">
+                                      </div>
+
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Narasi:</label>
                                         <input type="text" class="form-control" id="narasi" required name="narasi" value="{{old('narasi')}}">
+                                      </div>
+
+                                       <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+                                        <input type="date" class="form-control" id="tanggal_terbit" required name="tanggal_terbit" value="{{old('tanggal_terbit')}}">
                                       </div>
 
                                       <div class="mb-3">
@@ -126,6 +166,8 @@
                                             <th>Judul</th>
                                             <th>Foto</th>
                                             <th>Narasi</th>
+                                            <th>Tanggal Terbit</th>
+                                            <th>Video</th>
                                             <th>Provinsi</th>
                                             <th>Kabupaten</th>
                                             <th>Kecamatan</th>
@@ -144,6 +186,12 @@
                                                 </div>
                                             </td>
                                             <td>{{$data->narasi}}</td>
+                                            <td>{{$data->tanggal_terbit}}</td>
+                                            @if (pathinfo($data->video, PATHINFO_EXTENSION) == 'mp4' )
+                                            <td><a href="/storage/{{$data->video}}">Cek Video lokal</a></td>    
+                                            @else
+                                            <td><a href="{{$data->video}}">Cek Video Youtube</a></td>                                            
+                                            @endif
                                             <td>{{$data->provinsi}}</td>
                                             <td>{{$data->kabupaten}}</td>
                                             <td>{{$data->kecamatan}}</td>
@@ -194,6 +242,26 @@
                           })
                         
                         $(function () {
+
+                              $('#list_video').change(function() {
+                                  let list_video = $(this).val();
+                                  if (list_video == 'Link') {
+                                        document.getElementById('link').style.display = "contents";
+                                        document.getElementById('video').style.display = "none"
+                                         $("#data_video").val("");
+                                         $('#data_link').attr('required', true); 
+                                         $('#data_video').attr('required', false); 
+                                  }else if (list_video == 'Video') {
+                                        document.getElementById('video').style.display = "contents";
+                                        document.getElementById('link').style.display = "none";
+                                         $('#data_link').attr('required', false); 
+                                         $('#data_video').attr('required', true); 
+                                         $("#data_link").val("");
+                                   
+                                  }
+                                 
+                                });
+
                             $('#provinsi').on('change',function () {
                                 let id_provinsi = $('#provinsi').val();
 

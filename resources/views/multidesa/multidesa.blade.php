@@ -86,7 +86,16 @@
                                        </select>
                                      </div>
 
-
+                                     <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Latitude:</label>
+                                        <input type="text" class="form-control" id="latitude" required name="latitude" value="{{old('latitude')}}">
+                                      </div>
+ 
+                                        <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Longitude:</label>
+                                        <input type="text" class="form-control" id="longitude" required name="longitude" value="{{old('longitude')}}">
+                                      </div>
+ 
 
 
                                      <div class="modal-footer">

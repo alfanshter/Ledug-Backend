@@ -19,6 +19,8 @@ return new class extends Migration
             $table->char('kabupaten_id');
             $table->char('kecamatan_id');
             $table->char('desa_id');
+            $table->double('latitude');
+            $table->double('longitude');
             $table->timestamps();
         });
     }
