@@ -117,10 +117,10 @@
                     <span>Berita Desa</span></a>
             </li>
 
-            <li class="nav-item {{Request::is('lada') ? 'active' : ''}} ">
-                <a class="nav-link" href="/lada">
+            <li class="nav-item {{Request::is('leaflet') ? 'active' : ''}} ">
+                <a class="nav-link" href="/leaflet">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Link LADA</span></a>
+                    <span>Leaflet Map</span></a>
             </li>
 
        

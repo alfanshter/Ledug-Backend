@@ -16,5 +16,9 @@ class MultiDesa extends Model
     {
         return $this->hasOne('App\Models\Province');
     }
-    
+
+    public function desa()
+    {
+        return $this->hasOne(Village::class, 'id', 'desa_id');
+    }
 }

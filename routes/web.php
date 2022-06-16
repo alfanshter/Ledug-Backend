@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\BannerController;
 use App\Http\Controllers\BeritaAdminController;
+use App\Http\Controllers\LeafletMapController;
 use App\Http\Controllers\PasardesaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Web\AdminController;
@@ -132,3 +133,6 @@ Route::get('/fasilitasdesa', [FasilitasDesaController::class, 'index_admin'])->m
 Route::post('/tambah_fasilitas_admin', [FasilitasDesaController::class, 'tambah_fasilitas_admin'])->middleware('admin');
 
 //============================END Fasilitas Desa==================================
+//============================Leaflet=====================================
+Route::get('/leaflet', [LeafletMapController::class, 'index'])->middleware('admin');
+//============================END Leaflet==================================
