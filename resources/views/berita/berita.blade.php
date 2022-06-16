@@ -46,7 +46,7 @@ $ekstensi_video = array(
                     @enderror
 
                     
-                      <!-- Logout Modal-->
+                      <!-- Tambah Modal-->
                     <div class="modal fade" id="tambahsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">

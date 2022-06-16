@@ -52,6 +52,7 @@ class BeritaAdminController extends Controller
 
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'judul' => 'required|max:255',
             'foto' => 'image|file|max:1024',
@@ -88,6 +89,9 @@ class BeritaAdminController extends Controller
 
         $post =  DB::table('beritas')->insert($validatedData);
 
+        if (auth()->user()->role == 1) {
+            return redirect('/beritadesa_admin')->with('success', 'Berita berhasil di input');
+        }
         return redirect('/beritadesa')->with('success', 'Berita berhasil di input');
     }
 

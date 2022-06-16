@@ -32,7 +32,7 @@
                     @enderror
 
                     
-                      <!-- Logout Modal-->
+                      <!-- Tambah Modal-->
                     <div class="modal fade" id="tambahsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -46,24 +46,55 @@
                                 <div class="modal-body">
                                     <form action="/beritadesa" method="POST" enctype="multipart/form-data">
                                             @csrf
+                                    <input type="hidden" name="province_id" value="{{auth()->user()->province_id}}">
+                                    <input type="hidden" name="regencie_id" value="{{auth()->user()->regencie_id}}">
+                                    <input type="hidden" name="district_id" value="{{auth()->user()->district_id}}">
+                                    <input type="hidden" name="village_id" value="{{auth()->user()->village_id}}">
 
-                                      <div class="mb-3">
+                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Judul:</label>
                                         <input type="text" class="form-control" id="judul" required name="judul" value="{{old('judul')}}">
                                       </div>
 
-                                      <div class="mb-3">
+                                      <div class="mb-3" id="foto">
                                         <label for="recipient-name" class="col-form-label">foto:</label>
                                         <img class="img-preview-edit img-fluid">
                                         <input type="file" class="form-control" id="foto" required name="foto" value="{{old('foto')}}" onchange="previewBerita()">
                                        
                                       </div>
+
+                                       <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                        <select  id="list_video" class="form-control">
+                                            <option value="">Pilih ...</option>
+                                            <option value="Link">Link Youtube</option>                                                
+                                            <option value="Video">Upload File Local</option>                                                
+
+                                        </select>
+                                      </div>
+
+                                       <div class="mb-3"  id="video" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                        <img class="img-preview-edit img-fluid">
+                                        <input type="file" class="form-control" id="data_video" required name="video" value="{{old('video')}}">
+                                       
+                                      </div>
+
+                                      <div class="mb-3" id="link" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">Link:</label>
+                                        <input type="text" class="form-control" id="data_link" required name="link" value="{{old('link')}}">
+                                      </div>
+
                                       <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Narasi:</label>
                                         <input type="text" class="form-control" id="narasi" required name="narasi" value="{{old('narasi')}}">
                                       </div>
 
-                                     
+                                       <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+                                        <input type="date" class="form-control" id="tanggal_terbit" required name="tanggal_terbit" value="{{old('tanggal_terbit')}}">
+                                      </div>
+
 
                                       <div class="modal-footer">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -91,6 +122,9 @@
                                             <th>Judul</th>
                                             <th>Foto</th>
                                             <th>Narasi</th>
+                                            <th>Tanggal Terbit</th>
+                                            <th>Video</th>
+
                                             <th>Desa</th>
                                             <th class="align-middle text-center">Action</th>
                                         </tr>
@@ -106,6 +140,13 @@
                                                 </div>
                                             </td>
                                             <td>{{$data->narasi}}</td>
+                                                                                        <td>{{$data->tanggal_terbit}}</td>
+                                            @if (pathinfo($data->video, PATHINFO_EXTENSION) == 'mp4' )
+                                            <td><a href="/storage/{{$data->video}}">Cek Video lokal</a></td>    
+                                            @else
+                                            <td><a href="{{$data->video}}">Cek Video Youtube</a></td>                                            
+                                            @endif
+
                                             <td>{{$data->desa}}</td>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-sm-center mt-2">
@@ -130,7 +171,7 @@
                     </div>
 
 
-                    <script>
+                        <script>
                         function previewBerita(){
                                                 const  image = document.querySelector('#foto');
                                                 const imgPreviewBerita = document.querySelector('.img-preview-edit');
@@ -153,70 +194,26 @@
                           })
                         
                         $(function () {
-                            $('#provinsi').on('change',function () {
-                                let id_provinsi = $('#provinsi').val();
 
-                                $.ajax({
-                                    // type: "POST",
-                                    method: 'POST',
-                                    url: "{{route('getkabupaten_on')}}",
-                                    data: {id_provinsi: id_provinsi},
-                                    success: function (response) {
-                                        $('#kabupaten').empty();
-                                        $('#kabupaten').html('<option value="">Pilih Kabupaten</option>');
-                                        $.each(response, function (id, name) {
-                                            $('#kabupaten').append(new Option(name, id))
-
-                                        })
-                                    },
-                                    error: function (data) {
-                                        console.log('error',data);
-                                      }
+                              $('#list_video').change(function() {
+                                  let list_video = $(this).val();
+                                  if (list_video == 'Link') {
+                                        document.getElementById('link').style.display = "contents";
+                                        document.getElementById('video').style.display = "none"
+                                         $("#data_video").val("");
+                                         $('#data_link').attr('required', true); 
+                                         $('#data_video').attr('required', false); 
+                                  }else if (list_video == 'Video') {
+                                        document.getElementById('video').style.display = "contents";
+                                        document.getElementById('link').style.display = "none";
+                                         $('#data_link').attr('required', false); 
+                                         $('#data_video').attr('required', true); 
+                                         $("#data_link").val("");
+                                   
+                                  }
+                                 
                                 });
-                              })
 
-                              $('#kabupaten').on('change',function () {
-                                let id_kabupaten = $('#kabupaten').val();
-                                $.ajax({
-                                    type: "POST",
-                                    url: "{{route('getkecamatan_on')}}",
-                                    data: {id_kabupaten: id_kabupaten},
-                                    success: function (response) {
-                                        $('#kecamatan').empty();
-                                        $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
-
-                                        $.each(response, function (id, name) {
-                                            $('#kecamatan').append(new Option(name, id))
-                                        })
-                                    },
-                                    error: function (data) {
-                                        console.log('error',data);
-                                      }
-                                });
-                              })
-
-                              $('#kecamatan').on('change',function () {
-                                let id_kecamatan = $('#kecamatan').val();
-
-                                $.ajax({
-                                    type: "POST",
-                                    url: "{{route('getdesa_on')}}",
-                                    data: {id_kecamatan: id_kecamatan},
-                                    cache: false,
-                                    success: function (response) {
-                                        $('#desa').empty();
-                                        $('#desa').html('<option value="">Pilih Desa</option>');
-
-                                        $.each(response, function (id, name) {
-                                            $('#desa').append(new Option(name, id))
-                                        })
-
-                                    },
-                                    error: function (data) {
-                                        console.log('error',data);
-                                      }
-                                });
-                              })
                           })
                     </script>
 @endsection

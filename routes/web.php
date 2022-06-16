@@ -54,7 +54,7 @@ Route::delete('/admin/hapusadmin/{id}', [AdminController::class, 'destroy'])->mi
 //superadmin
 Route::get('/beritadesa', [WebBeritaAdminController::class, 'index'])->middleware('superadmin');
 Route::get('/beritadesa/{id}', [WebBeritaAdminController::class, 'edit'])->middleware('superadmin');
-Route::post('/beritadesa', [WebBeritaAdminController::class, 'store'])->middleware('superadmin');
+Route::post('/beritadesa', [WebBeritaAdminController::class, 'store'])->middleware('auth');
 Route::post('/beritadesa/update', [WebBeritaAdminController::class, 'update'])->middleware('superadmin');
 Route::post('/beritadesa/delete', [WebBeritaAdminController::class, 'delete'])->middleware('superadmin');
 //admin
