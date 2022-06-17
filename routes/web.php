@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\BannerController;
 use App\Http\Controllers\BeritaAdminController;
+use App\Http\Controllers\BudayaLokalController;
 use App\Http\Controllers\LeafletDesaController;
 use App\Http\Controllers\LeafletMapController;
 use App\Http\Controllers\PasardesaController;
@@ -143,3 +144,9 @@ Route::get('/leaflet', [LeafletMapController::class, 'index'])->middleware('admi
 Route::get('/leafletdesa', [LeafletDesaController::class, 'index'])->middleware('admin');
 Route::get('/marker', [LeafletDesaController::class, 'marker'])->name('desaterdekat')->middleware('admin');
 //============================END Leaflet==================================
+
+//============================Budaya Lokal=====================================
+Route::get('/budaya_lokal', [BudayaLokalController::class, 'budaya_lokal'])->middleware('admin');
+Route::post('/tambah_budaya_lokal', [BudayaLokalController::class, 'tambah_budaya_lokal'])->middleware('admin');
+Route::post('/delete_budaya_lokal', [BudayaLokalController::class, 'delete_budaya_lokal'])->middleware('admin');
+//============================END Budaya Lokal==================================

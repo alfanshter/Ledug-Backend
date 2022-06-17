@@ -131,10 +131,10 @@
                         </span></a>
             </li>
 
-            <li class="nav-item  {{Request::is('pasardesa') ? 'active' : ''}} ">
-                <a class="nav-link" href="/pasardesa">
+            <li class="nav-item  {{Request::is('budaya_lokal') ? 'active' : ''}} ">
+                <a class="nav-link" href="/budaya_lokal">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Pasar Desa
+                    <span>Budaya Lokal
                         </span></a>
             </li>
             
