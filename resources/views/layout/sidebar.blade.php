@@ -124,10 +124,10 @@
             </li>
 
        
-            <li class="nav-item  {{Request::is('bayarbeli') ? 'active' : ''}} ">
-                <a class="nav-link" href="/bayarbeli">
+            <li class="nav-item  {{Request::is('leafletdesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/leafletdesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Bayar/Beli
+                    <span>Desa Lainnya
                         </span></a>
             </li>
 
