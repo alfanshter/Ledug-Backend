@@ -20,11 +20,20 @@ class BudayaLokalController extends Controller
     {
 
         $validatedData = $request->validate([
-            'foto' => 'image|file|max:1024',
-            'video' => 'required|mimes:mp4,ogx,oga,ogv,ogg,webm'
+            'foto' => 'image|file|max:1024'
         ]);
 
-        $postdata = $request->except('_token');
+
+        $cekvideo = 0;
+        if ($request->video) {
+            $cekvideo = 1;
+        }
+
+        if ($request->link) {
+            $cekvideo = 0;
+        }
+
+        $postdata = $request->except('_token', 'link');
 
 
         if ($request->file('foto')) {
@@ -32,9 +41,12 @@ class BudayaLokalController extends Controller
         }
 
 
-        if ($request->file('video')) {
-            $postdata['video'] = $request->file('video')->store('video-budayalokal', 'public');
+        if ($cekvideo == 1) {
+            $postdata['video'] = $request->file('video')->store('video-berita', 'public');
+        } else {
+            $postdata['video'] = $request->link;
         }
+
 
         $post =  BudayaLokal::insert($postdata);
         notify()->success('Tambah Budaya Berhasil', 'Budaya');
@@ -42,10 +54,43 @@ class BudayaLokalController extends Controller
         return redirect('/budaya_lokal');
     }
 
+    public function update_budaya_lokal_admin(Request $request)
+    {
+        $update = $request->except('_token', 'link_edit', 'video_edit', 'id', 'oldImage', 'oldVideo', 'link');
+        $cekvideo = 0;
+        if ($request->video_edit) {
+            $cekvideo = 1;
+        }
+
+        if ($request->link_edit) {
+            $cekvideo = 2;
+        }
+
+        if ($cekvideo == 1) {
+            $update['video'] = $request->file('video_edit')->store('video-budayalokal', 'public');
+            Storage::disk('public')->delete($request->oldVideo);
+        } else if ($cekvideo == 2) {
+            $update['video'] = $request->link_edit;
+            Storage::disk('public')->delete($request->oldVideo);
+        }
+
+        if ($request->file('foto')) {
+            $validatedData = $request->validate([
+                'foto' => 'image|file|max:1024'
+            ]);
+            $update['foto'] = $request->file('foto')->store('foto-budayalokal', 'public');
+            Storage::disk('public')->delete($request->oldImage);
+        }
+
+        BudayaLokal::where('id', $request->id)->update($update);
+        notify()->success('Edit Budaya Berhasil', 'Budaya');
+        return redirect('/budaya_lokal');
+    }
     public function delete_budaya_lokal(Request $request)
     {
         $delete = BudayaLokal::where('id', $request->id)->delete();
-        Storage::delete($request->foto);
+        Storage::disk('public')->delete($request->foto);
+        Storage::disk('public')->delete($request->video);
         notify()->success('Hapus Budaya Berhasil', 'Budaya');
         return redirect('/budaya_lokal');
     }

@@ -148,5 +148,6 @@ Route::get('/marker', [LeafletDesaController::class, 'marker'])->name('desaterde
 //============================Budaya Lokal=====================================
 Route::get('/budaya_lokal', [BudayaLokalController::class, 'budaya_lokal'])->middleware('admin');
 Route::post('/tambah_budaya_lokal', [BudayaLokalController::class, 'tambah_budaya_lokal'])->middleware('admin');
+Route::post('/update_budaya_lokal_admin', [BudayaLokalController::class, 'update_budaya_lokal_admin'])->middleware('admin');
 Route::post('/delete_budaya_lokal', [BudayaLokalController::class, 'delete_budaya_lokal'])->middleware('admin');
 //============================END Budaya Lokal==================================

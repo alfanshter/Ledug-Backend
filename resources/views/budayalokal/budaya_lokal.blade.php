@@ -30,7 +30,7 @@
     {{$message}}
 </div>
 @enderror
-        <x:notify-messages />
+<x:notify-messages />
 
 
 <!-- Tambah Modal-->
@@ -90,11 +90,26 @@
                         </script>
                     </div>
 
-                    <div class="mb-3"  id="video" >
-                                        <label for="recipient-name" class="col-form-label">Video:</label>
-                                        <img class="img-preview-edit img-fluid">
-                                        <input type="file" class="form-control" id="video" required name="video" value="{{old('video')}}">
-                                       
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Video:</label>
+                        <select id="list_video" class="form-control">
+                            <option value="">Pilih ...</option>
+                            <option value="Link">Link Youtube</option>
+                            <option value="Video">Upload File Local</option>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="video" style="display:none">
+                        <label for="recipient-name" class="col-form-label">Video:</label>
+                        <img class="video-preview img-fluid">
+                        <input type="file" class="form-control" id="data_video" required name="video" value="{{old('video')}}">
+
+                    </div>
+
+                    <div class="mb-3" id="link" style="display:none">
+                        <label for="recipient-name" class="col-form-label">Link:</label>
+                        <input type="text" class="form-control" id="data_link" required name="link" value="{{old('link')}}">
                     </div>
 
                     <div class="modal-footer">
@@ -138,14 +153,12 @@
                         <td>{{$data->judul}}</td>
                         <td>{{$data->uraian}}</td>
                         <td>
-                            <div>
-                                <img style="height: 200px; width:200px" src="{{asset('storage/'. $data->foto)}}" alt="">
-                            </div>
+                            <a href="/storage/{{$data->foto}}">Cek Foto</a>
                         </td>
-                         @if (pathinfo($data->video, PATHINFO_EXTENSION) == 'mp4' )
-                                            <td><a href="/storage/{{$data->video}}">Cek Video lokal</a></td>    
-                                            @else
-                                            <td><a href="{{$data->video}}">Cek Video Youtube</a></td>                                            
+                        @if (pathinfo($data->video, PATHINFO_EXTENSION) == 'mp4' )
+                        <td><a href="/storage/{{$data->video}}">Cek Video lokal</a></td>
+                        @else
+                        <td><a href="{{$data->video}}">Cek Video Youtube</a></td>
                         @endif
                         <td>{{$data->tanggal_terbit}}</td>
                         <td>{{\Carbon\Carbon::parse($data->created_at)->format('d-m-Y'); }}</td>
@@ -155,10 +168,11 @@
                                 <form action="/delete_budaya_lokal" method="post">
                                     @csrf
                                     <input type="hidden" name="foto" value="{{$data->foto}}" id="foto">
+                                    <input type="hidden" name="video" value="{{$data->video}}" id="video">
                                     <input type="hidden" name="id" value="{{$data->id}}" id="id">
                                     <button class="btn btn-danger ml-2" onclick="return confirm('Apakah anda akan menghapus data ?')">Hapus</button>
                                 </form>
-                                <button type="button" data-toggle="modal" data-target="#editbudaya_lokal{{$data->id}}"  class="btn btn-warning ml-2">Edit</button>
+                                <button type="button" data-toggle="modal" data-target="#editbudaya_lokal{{$data->id}}" class="btn btn-warning ml-2">Edit</button>
                                 <!-- Edit Modal-->
                                 <div class="modal fade" id="editbudaya_lokal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -173,34 +187,37 @@
                                                 <form action="/update_budaya_lokal_admin" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="oldImage" value="{{$data->foto}}">
+                                                    <input type="hidden" name="oldVideo" value="{{$data->video}}">
                                                     <input type="hidden" name="id" value="{{$data->id}}">
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">judul:</label>
+                                                        <label for="recipient-name" class="col-form-label">Cagar Budaya:</label>
+                                                        <input type="text" class="form-control" id="cagar_budaya" required name="cagar_budaya" value="{{old('cagar_budaya',$data->cagar_budaya)}}">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name" class="col-form-label">Judul:</label>
                                                         <input type="text" class="form-control" id="judul" required name="judul" value="{{old('judul',$data->judul)}}">
                                                     </div>
 
-                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Deskripsi:</label>
-                                                        <input type="text" class="form-control" id="deskripsi" required name="deskripsi" value="{{old('deskripsi',$data->deskripsi)}}">
-                                                    </div>
-
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Link:</label>
-                                                        <input type="text" class="form-control" id="link" required name="link" value="{{old('link',$data->link)}}">
+                                                        <label for="recipient-name" class="col-form-label">Uraian:</label>
+                                                        <input type="text" class="form-control" id="uraian" required name="uraian" value="{{old('uraian',$data->uraian)}}">
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="recipient-name" class="col-form-label">foto:</label>
                                                         <br>
                                                         @if ($data->foto)
-                                                            <img class="img-preview-edit img-fluid" src="{{asset('storage/'.$data->foto)}}" style="width: 200px; height:200px">
-                                                            @else
-                                                            <img class="img-preview-edit img-fluid">            
-                                                            @endif
-                                                        <input type="file" class="form-control" id="editbudaya_lokal"  name="foto" value="{{old('foto')}}" onchange="budaya_lokalEdit()">
+                                                        <center>
+                                                        <img class="img-preview-edit img-fluid" src="{{asset('storage/'.$data->foto)}}" style="width: 200px; height:200px">
+                                                        </center>
+                                                        @else
+                                                        <img class="img-preview-edit img-fluid">
+                                                        @endif
+                                                        <input type="file" class="form-control" id="editbudaya_lokal" name="foto"  onchange="budaya_lokalEdit()">
                                                         <script>
-                                                            function budaya_lokalEdit(){
-                                                                const  image = document.querySelector('#editbudaya_lokal');
+                                                            function budaya_lokalEdit() {
+                                                                const image = document.querySelector('#editbudaya_lokal');
                                                                 const imgPreviewEdit = document.querySelector('.img-preview-edit');
 
                                                                 imgPreviewEdit.style.display = 'block';
@@ -209,19 +226,44 @@
                                                                 oFReader.readAsDataURL(image.files[0]);
 
                                                                 oFReader.onload = function(oFREvent) {
-                                                                    imgPreviewEdit.src = oFREvent.target.result;            
+                                                                    imgPreviewEdit.src = oFREvent.target.result;
                                                                 }
 
                                                             }
-
                                                         </script>
                                                     </div>
 
+     
+                                                      <div class="mb-3">
+                                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                                        <select id="list_video_edit" class="form-control">
+                                                            <option value="">Pilih ...</option>
+                                                            <option value="Link">Link Youtube</option>
+                                                            <option value="Video">Upload File Local</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3" id="video_edit" style="display:none">
+                                                        <label for="recipient-name" class="col-form-label">Video:</label>
+                                                        <img class="video-preview-edit img-fluid">
+                                                        <input type="file" class="form-control" id="data_video"  name="video_edit" >
+
+                                                    </div>
+
+                                                    <div class="mb-3" id="link_edit" style="display:none">
+                                                        <label for="recipient-name" class="col-form-label">Link:</label>
+                                                        <input type="text" class="form-control" id="data_link"  name="link_edit" >
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+                                                        <input type="text" class="form-control" id="tanggal_terbit" required name="tanggal_terbit" value="{{old('tanggal_terbit',$data->tanggal_terbit)}}">
+                                                    </div>
 
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                                         <button type="submit" class="btn btn-primary">Update</button>
-
                                                     </div>
                                                 </form>
                                             </div>
@@ -243,4 +285,47 @@
 </div>
 
 
+<script>
+    $(function() {
+        $('#list_video').change(function() {
+            let list_video = $(this).val();
+            if (list_video == 'Link') {
+                document.getElementById('link').style.display = "contents";
+                document.getElementById('video').style.display = "none"
+                $("#data_video").val("");
+                $('#data_link').attr('required', true);
+                $('#data_video').attr('required', false);
+            } else if (list_video == 'Video') {
+                document.getElementById('video').style.display = "contents";
+                document.getElementById('link').style.display = "none";
+                $('#data_link').attr('required', false);
+                $('#data_video').attr('required', true);
+                $("#data_link").val("");
+
+            }
+
+        });
+
+                $('#list_video_edit').change(function() {
+            let list_video = $(this).val();
+            if (list_video == 'Link') {
+                document.getElementById('link_edit').style.display = "contents";
+                document.getElementById('video_edit').style.display = "none"
+                $("#data_video_edit").val("");
+                $('#data_link_edit').attr('required', true);
+                $('#data_video_edit').attr('required', false);
+            } else if (list_video == 'Video') {
+                document.getElementById('video_edit').style.display = "contents";
+                document.getElementById('link_edit').style.display = "none";
+                $('#data_link_edit').attr('required', false);
+                $('#data_video_edit').attr('required', true);
+                $("#data_link_edit").val("");
+
+            }
+
+        });
+
+
+    })
+</script>
 @endsection
