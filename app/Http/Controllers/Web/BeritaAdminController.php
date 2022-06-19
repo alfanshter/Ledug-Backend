@@ -97,8 +97,11 @@ class BeritaAdminController extends Controller
 
     public function delete(Request $request)
     {
+
         $delete = Berita::where('id', $request->id)->delete();
-        Storage::delete($request->foto);
+        Storage::disk('public')->delete($request->foto);
+        Storage::disk('public')->delete($request->video);
+        notify()->success('Edit Berita Berhasil', 'Budaya');
         return redirect('/beritadesa')->with('success', 'Berhasil di hapus');
     }
 
@@ -117,17 +120,35 @@ class BeritaAdminController extends Controller
 
         ]);
 
-
-        if ($request->file('foto')) {
-            if ($request->oldImage) {
-                Storage::delete($request->oldImage);
-            }
-            $validatedData['foto'] = $request->file('foto')->store('foto-berita');
+        $update = $request->except('_token', 'link_edit', 'video_edit', 'id', 'oldImage', 'oldVideo', 'link');
+        $cekvideo = 0;
+        if ($request->video_edit) {
+            $cekvideo = 1;
         }
 
-        Berita::where('id', $request->id)
-            ->update($validatedData);
+        if ($request->link_edit) {
+            $cekvideo = 2;
+        }
 
-        return redirect('/beritadesa')->with('success', 'Berita berhasil di update');
+        if ($cekvideo == 1) {
+            $update['video'] = $request->file('video_edit')->store('video-berita', 'public');
+            Storage::disk('public')->delete($request->oldVideo);
+        } else if ($cekvideo == 2) {
+            $update['video'] = $request->link_edit;
+            Storage::disk('public')->delete($request->oldVideo);
+        }
+
+
+        if ($request->file('foto')) {
+            $validatedData = $request->validate([
+                'foto' => 'image|file|max:1024'
+            ]);
+            $update['foto'] = $request->file('foto')->store('foto-berita', 'public');
+            Storage::disk('public')->delete($request->oldImage);
+        }
+
+        Berita::where('id', $request->id)->update($update);
+        notify()->success('Edit Budaya Berhasil', 'Budaya');
+        return redirect('/beritadesa');
     }
 }
