@@ -20,15 +20,6 @@
    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
    crossorigin=""></script>    
 
-
- {{--<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-          crossorigin="">
-      </script>
- <script src="https://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>--}}
-
-
-
 <script>
     $(document).ready(function() {
         navigator.geolocation.getCurrentPosition(function(position) {

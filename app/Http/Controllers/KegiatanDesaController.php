@@ -10,7 +10,7 @@ class KegiatanDesaController extends Controller
 {
     public function index()
     {
-        $kegiatandesa = KegiatanDesa::all();
+        $kegiatandesa = KegiatanDesa::where('village_id', auth()->user()->village_id)->get();
         return view('kegiatandesa.kegiatandesa', ['kegiatandesa' => $kegiatandesa]);
     }
 

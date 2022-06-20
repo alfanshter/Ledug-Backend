@@ -7,6 +7,7 @@ use App\Http\Controllers\KegiatanDesaController;
 use App\Http\Controllers\LeafletDesaController;
 use App\Http\Controllers\LeafletMapController;
 use App\Http\Controllers\PasardesaController;
+use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BayarBeliController;
@@ -161,3 +162,10 @@ Route::post('/cek_lokasi', [KegiatanDesaController::class, 'cek_lokasi'])->middl
 Route::post('/tambah_kegiatandesa', [KegiatanDesaController::class, 'tambah_kegiatandesa'])->middleware('admin');
 Route::post('/update_kegiatandesa', [KegiatanDesaController::class, 'update_kegiatandesa'])->middleware('admin');
 //============================END Kegiatan Desa==================================
+
+//============================Pelatihan=====================================
+Route::get('/pelatihan', [PelatihanController::class, 'pelatihan'])->middleware('admin');
+Route::post('/tambah_pelatihan', [PelatihanController::class, 'tambah_pelatihan'])->middleware('admin');
+Route::post('/update_pelatihan_admin', [PelatihanController::class, 'update_pelatihan_admin'])->middleware('admin');
+Route::post('/hapus_pelatihan', [PelatihanController::class, 'hapus_pelatihan'])->middleware('admin');
+//============================End Pelatihan==================================

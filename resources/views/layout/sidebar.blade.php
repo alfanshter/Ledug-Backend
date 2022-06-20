@@ -144,6 +144,12 @@
                     <span>Kegiatan Desa</span></a>
             </li>
 
+            <li class="nav-item {{Request::is('pelatihan') ? 'active' : ''}} ">
+                <a class="nav-link" href="/pelatihan">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Pelatihan</span></a>
+            </li>
+
 
             @endif
             {{-- ==================== ADMIN ===================== --}}
