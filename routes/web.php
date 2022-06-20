@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\BannerController;
 use App\Http\Controllers\BeritaAdminController;
 use App\Http\Controllers\BudayaLokalController;
+use App\Http\Controllers\KegiatanDesaController;
 use App\Http\Controllers\LeafletDesaController;
 use App\Http\Controllers\LeafletMapController;
 use App\Http\Controllers\PasardesaController;
@@ -151,3 +152,12 @@ Route::post('/tambah_budaya_lokal', [BudayaLokalController::class, 'tambah_buday
 Route::post('/update_budaya_lokal_admin', [BudayaLokalController::class, 'update_budaya_lokal_admin'])->middleware('admin');
 Route::post('/delete_budaya_lokal', [BudayaLokalController::class, 'delete_budaya_lokal'])->middleware('admin');
 //============================END Budaya Lokal==================================
+
+
+//============================Kegiatan Desa=====================================
+Route::get('/kegiatandesa', [KegiatanDesaController::class, 'index'])->middleware('admin');
+Route::post('/delete_kegiatandesa', [KegiatanDesaController::class, 'delete_kegiatandesa'])->middleware('admin');
+Route::post('/cek_lokasi', [KegiatanDesaController::class, 'cek_lokasi'])->middleware('admin');
+Route::post('/tambah_kegiatandesa', [KegiatanDesaController::class, 'tambah_kegiatandesa'])->middleware('admin');
+Route::post('/update_kegiatandesa', [KegiatanDesaController::class, 'update_kegiatandesa'])->middleware('admin');
+//============================END Kegiatan Desa==================================

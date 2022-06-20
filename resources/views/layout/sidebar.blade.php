@@ -138,10 +138,10 @@
                         </span></a>
             </li>
             
-            <li class="nav-item {{Request::is('admin') ? 'active' : ''}} ">
-                <a class="nav-link" href="/admin">
+            <li class="nav-item {{Request::is('kegiatandesa') ? 'active' : ''}} ">
+                <a class="nav-link" href="/kegiatandesa">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Admin</span></a>
+                    <span>Kegiatan Desa</span></a>
             </li>
 
 
