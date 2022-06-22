@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dompet;
 use App\Models\Mekanik;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -41,6 +42,7 @@ class MekanikController extends Controller
             'plat_nomor' => ['required'],
             'jenis_kelamin' => ['required'],
             'kendaraan' => ['required'],
+            'jenis_pekerjaan' => ['required'],
             'plat_nomor' => ['required']
         ]);
 
@@ -75,10 +77,10 @@ class MekanikController extends Controller
             $aktekelahiran = Mekanik::create($insertdata);
 
             //insert dompet 
-            //$dompet = Dompet::create([
-            //    'uid_from' => $createdUser->uid,
-            //    'saldo' => 30000
-            //]);
+            $dompet = Dompet::create([
+                'uid' => $createdUser->uid,
+                'saldo' => 30000
+            ]);
 
             $response = [
                 'message' => 'pendaftaran berhasil berhasil',
@@ -90,6 +92,62 @@ class MekanikController extends Controller
             $response = [
                 'message' => 'pendaftaran berhasil berhasil',
                 'data' => $e->errorInfo
+            ];
+
+            return response()->json($response, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function loginmekanik(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => ['required'],
+            'password' => ['required'],
+            'token' => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+            $ceklogin = Mekanik::where('username', $request->username)->first();
+            if ($ceklogin != null) {
+                $password = Hash::check($request->password, $ceklogin['password']);
+                if ($password == true) {
+                    $updatetoken = Mekanik::where('username', $request->username)->update([
+                        'token_id' => $request->token
+                    ]);
+
+                    $response = [
+                        'message' => 'login berhasil',
+                        'status' => 1,
+                        'data' => $ceklogin
+                    ];
+                    return response()->json($response, Response::HTTP_OK);
+                } else {
+                    $response = [
+                        'message' => 'Password Salah',
+                        'status' => 0,
+                        'data' => null
+                    ];
+
+                    return response()->json($response, Response::HTTP_OK);
+                }
+            } else {
+
+                $response = [
+                    'message' => 'login gagal',
+                    'status' => 0,
+                    'data' => null
+                ];
+
+                return response()->json($response, Response::HTTP_OK);
+            }
+        } catch (QueryException $th) {
+            $response = [
+                'message' => 'Akte kelahiran berhasil',
+                'data' => $th->errorInfo
             ];
 
             return response()->json($response, Response::HTTP_BAD_REQUEST);

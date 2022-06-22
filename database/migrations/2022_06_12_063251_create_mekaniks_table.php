@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('nama_bank')->nullable();
             $table->string('rekening_bank')->nullable();
             $table->string('atas_nama')->nullable();
+            $table->string('jenis_pekerjaan');
             $table->timestamps();
         });
     }
