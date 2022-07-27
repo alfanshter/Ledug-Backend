@@ -29,10 +29,10 @@ class PasardesaController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-pasardesa', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        $post =  Pasardesa::insert($validatedData);
+        $post =  Pasardesa::create($validatedData);
 
         return redirect('/pasardesa')->with('success', 'pasardesa berhasil di input');
     }
@@ -65,7 +65,7 @@ class PasardesaController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['foto'] = $request->file('foto')->store('foto-pasardesa');
+            $validatedData['foto'] = $request->file('foto')->store('foto');
         }
 
         Pasardesa::where('id', $request->id)

@@ -26,7 +26,7 @@ class GambarDesaController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-desa', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
         $post =  GambarDesa::insert($validatedData);

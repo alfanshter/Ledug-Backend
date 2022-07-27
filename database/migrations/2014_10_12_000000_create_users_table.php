@@ -33,6 +33,14 @@ return new class extends Migration
             $table->char('village_id')->nullable();
             $table->foreign('village_id')->references('id')->on('villages')->onDelete('cascade')->onUpdate('cascade');
             $table->string('alamat_lengkap')->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('foto_kk')->nullable();
+            $table->string('foto_ktp')->nullable();
+            $table->string('foto_akta')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('token_id')->nullable();
+            $table->string('nik')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

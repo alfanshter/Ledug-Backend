@@ -53,6 +53,12 @@
         <input type="text" class="form-control" id="alamat" required name="alamat" >
         </div>
 
+         <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Deskripsi : </label>
+        <input type="text" class="form-control" id="deskripsi" required name="deskripsi"  >
+        </div>
+
+
       @else
         <div class="mb-3">
         <label for="recipient-name" class="col-form-label">kepala Desa:</label>
@@ -66,6 +72,11 @@
         <div class="mb-3">
         <label for="recipient-name" class="col-form-label">Alamat : </label>
         <input type="text" class="form-control" id="alamat" required name="alamat" value="{{$profil->alamat}}" >
+        </div>
+
+        <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Deskripsi : </label>
+        <input type="text" class="form-control" id="deskripsi" required name="deskripsi" value="{{$profil->deskripsi}}" >
         </div>
 
       @endif

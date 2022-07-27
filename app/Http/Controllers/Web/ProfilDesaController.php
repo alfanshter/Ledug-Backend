@@ -26,7 +26,8 @@ class ProfilDesaController extends Controller
             'province_id' => 'required',
             'regencie_id' => 'required',
             'district_id' => 'required',
-            'village_id' => 'required'
+            'village_id' => 'required',
+            'deskripsi' => 'required'
 
 
         ]);

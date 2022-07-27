@@ -8,9 +8,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Kreait\Firebase\Contract\Auth;
+use Kreait\Firebase\Request\CreateUser;
 
 class AdminController extends Controller
 {
+    public function __construct(Auth $auth)
+    {
+        $this->auth = $auth;
+    }
+
     public function index()
     {
         // Get semua data

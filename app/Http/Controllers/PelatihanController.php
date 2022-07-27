@@ -30,7 +30,7 @@ class PelatihanController extends Controller
 
 
         if ($request->file('foto')) {
-            $post['foto'] = $request->file('foto')->store('foto-pelatihan', 'public');
+            $post['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
 
@@ -70,7 +70,7 @@ class PelatihanController extends Controller
         }
 
         if ($cekvideo == 1) {
-            $update['video'] = $request->file('video_edit')->store('video-pelatihan', 'public');
+            $update['video'] = $request->file('video_edit')->store('video', 'public');
             Storage::disk('public')->delete($request->oldVideo);
         } else if ($cekvideo == 2) {
             $update['video'] = $request->link_edit;
@@ -81,7 +81,7 @@ class PelatihanController extends Controller
             $validatedData = $request->validate([
                 'foto' => 'image|file|max:1024'
             ]);
-            $update['foto'] = $request->file('foto')->store('foto-pelatihan', 'public');
+            $update['foto'] = $request->file('foto')->store('foto', 'public');
             Storage::disk('public')->delete($request->oldImage);
         }
 

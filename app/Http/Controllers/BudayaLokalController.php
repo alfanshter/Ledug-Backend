@@ -37,7 +37,7 @@ class BudayaLokalController extends Controller
 
 
         if ($request->file('foto')) {
-            $postdata['foto'] = $request->file('foto')->store('foto-budayalokal', 'public');
+            $postdata['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
 
@@ -67,7 +67,7 @@ class BudayaLokalController extends Controller
         }
 
         if ($cekvideo == 1) {
-            $update['video'] = $request->file('video_edit')->store('video-budayalokal', 'public');
+            $update['video'] = $request->file('video_edit')->store('video', 'public');
             Storage::disk('public')->delete($request->oldVideo);
         } else if ($cekvideo == 2) {
             $update['video'] = $request->link_edit;
@@ -78,7 +78,7 @@ class BudayaLokalController extends Controller
             $validatedData = $request->validate([
                 'foto' => 'image|file|max:1024'
             ]);
-            $update['foto'] = $request->file('foto')->store('foto-budayalokal', 'public');
+            $update['foto'] = $request->file('foto')->store('foto', 'public');
             Storage::disk('public')->delete($request->oldImage);
         }
 

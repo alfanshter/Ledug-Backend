@@ -180,6 +180,8 @@ return [
         AzisHapidin\IndoRegion\IndoRegionServiceProvider::class,
         Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Ejarnutowski\LaravelApiKey\Providers\ApiKeyServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class
     ],
 
     /*

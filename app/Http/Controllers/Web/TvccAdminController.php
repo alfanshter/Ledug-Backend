@@ -29,10 +29,10 @@ class TvccAdminController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-tvcc', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        $post =  DB::table('tvccs')->insert($validatedData);
+        $post =  Tvcc::create($validatedData);
 
         return redirect('/tvcc')->with('success', 'TVCC berhasil di input');
     }
@@ -65,7 +65,7 @@ class TvccAdminController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['foto'] = $request->file('foto')->store('foto-tvcc');
+            $validatedData['foto'] = $request->file('foto')->store('foto');
         }
 
         Tvcc::where('id', $request->id)

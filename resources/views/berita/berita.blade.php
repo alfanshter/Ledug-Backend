@@ -101,7 +101,7 @@ $ekstensi_video = array(
                     </div>
 
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+                        <label for="recipient-nIame" class="col-form-label">Tanggal Terbit:</label>
                         <input type="date" class="form-control" id="tanggal_terbit" required name="tanggal_terbit" value="{{old('tanggal_terbit')}}">
                     </div>
 

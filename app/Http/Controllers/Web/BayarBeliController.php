@@ -28,10 +28,10 @@ class BayarBeliController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-bayarbeli', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        $post =  BayarBeli::insert($validatedData);
+        $post =  BayarBeli::create($validatedData);
 
         return redirect('/bayarbeli')->with('success', 'bayarbeli berhasil di input');
     }

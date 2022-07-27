@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kepala_desa');
             $table->string('sekretaris_desa');
             $table->string('alamat');
-
+            $table->text('deskripsi');
             $table->char('province_id')->nullable();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->char('regencie_id')->nullable();

@@ -76,12 +76,12 @@ class BeritaAdminController extends Controller
 
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-berita', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
 
         if ($cekvideo == 1) {
-            $validatedData['video'] = $request->file('video')->store('video-berita', 'public');
+            $validatedData['video'] = $request->file('video')->store('video', 'public');
         } else {
             $validatedData['video'] = $request->link;
         }
@@ -131,7 +131,7 @@ class BeritaAdminController extends Controller
         }
 
         if ($cekvideo == 1) {
-            $update['video'] = $request->file('video_edit')->store('video-berita', 'public');
+            $update['video'] = $request->file('video_edit')->store('video', 'public');
             Storage::disk('public')->delete($request->oldVideo);
         } else if ($cekvideo == 2) {
             $update['video'] = $request->link_edit;

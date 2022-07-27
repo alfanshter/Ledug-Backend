@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('judul');
             $table->string('foto');
             $table->string('video');
-            $table->string('narasi');
+            $table->text('narasi');
             $table->date('tanggal_terbit');
             $table->char('province_id');
             $table->char('regencie_id');
             $table->char('district_id');
             $table->char('village_id');
+            $table->bigInteger('dikunjungi')->nullable();
             $table->timestamps();
         });
     }

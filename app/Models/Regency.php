@@ -35,6 +35,8 @@ class Regency extends Model
         'province_id'
     ];
 
+    protected $guarded = ['id'];
+
     /**
      * Regency belongs to Province.
      *

@@ -28,10 +28,10 @@ class LadaController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $validatedData['foto'] = $request->file('foto')->store('foto-lada', 'public');
+            $validatedData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        $post =  Lada::insert($validatedData);
+        $post =  Lada::create($validatedData);
 
         return redirect('/lada')->with('success', 'lada berhasil di input');
     }
