@@ -149,6 +149,12 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Pelatihan</span></a>
             </li>
+            
+            <li class="nav-item {{Request::is('chat') ? 'active' : ''}} ">
+                <a class="nav-link" href="/chat">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Chat</span></a>
+            </li>
 
 
             @endif

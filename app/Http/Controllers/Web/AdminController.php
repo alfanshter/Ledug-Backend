@@ -98,6 +98,8 @@ class AdminController extends Controller
 
         ]);
         $validatedData['role'] = 1;
+
+        $validatedData['password'] = Hash::make($request->password);
         $user = User::create($validatedData);
 
         return redirect('/admin')->with('success', 'Admin berhasil di input     ');

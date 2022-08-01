@@ -12,6 +12,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\BayarBeliController;
 use App\Http\Controllers\Web\BeritaAdminController as WebBeritaAdminController;
+use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\DataStatistikDesaController;
 use App\Http\Controllers\Web\FasilitasDesaController;
@@ -169,3 +170,6 @@ Route::post('/tambah_pelatihan', [PelatihanController::class, 'tambah_pelatihan'
 Route::post('/update_pelatihan_admin', [PelatihanController::class, 'update_pelatihan_admin'])->middleware('admin');
 Route::post('/hapus_pelatihan', [PelatihanController::class, 'hapus_pelatihan'])->middleware('admin');
 //============================End Pelatihan==================================
+
+//============================CHAT==================================
+Route::get('/chat', [ChatController::class, 'chat'])->middleware('admin');

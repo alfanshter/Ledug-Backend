@@ -15,6 +15,7 @@ use App\Http\Controllers\API\ProfilDesaController;
 use App\Http\Controllers\API\TvccController;
 use App\Http\Controllers\API\VersiController;
 use App\Http\Controllers\API\WilayahController;
+use App\Http\Controllers\FCMController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -113,3 +114,6 @@ Route::post('/versi/{id}', [VersiController::class, 'update']);
 Route::delete('/versi/{id}', [VersiController::class, 'delete']);
 Route::get('/versi', [VersiController::class, 'detail']);
 //====== End Versi ==========//
+
+//fcm
+Route::post('/save-token', [FCMController::class, 'index']);

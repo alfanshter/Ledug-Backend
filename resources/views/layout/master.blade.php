@@ -32,6 +32,8 @@
     <style>
         #map { height: 180px; }
     </style>
+    
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     @yield('style')
     @stack('scripts')
@@ -109,6 +111,7 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>     
 
         @notifyJs
+
 </body>
 
 </html>
