@@ -12,12 +12,6 @@
                 @if (auth()->user()->role ==1)
                 <div class="sidebar-brand-text mx-3">Admin</div>                    
                 @endif
-                @if (auth()->user()->role ==2)
-                <div class="sidebar-brand-text mx-3">Pelatih</div>                    
-                @endif
-                @if (auth()->user()->role ==3)
-                <div class="sidebar-brand-text mx-3">Kepala Sekolah</div>                    
-                @endif
 
 
             </a>
